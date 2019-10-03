@@ -2,6 +2,8 @@ package reina.yUi
 
 import basemod.BaseMod
 import basemod.interfaces.PostInitializeSubscriber
+import basemod.interfaces.PostUpdateSubscriber
+import com.badlogic.gdx.graphics.Texture
 import com.evacipated.cardcrawl.modthespire.lib.SpireEnum
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer
 import com.megacrit.cardcrawl.cards.AbstractCard
@@ -9,7 +11,22 @@ import java.util.*
 
 @SpireInitializer
 class Yui() :
-    PostInitializeSubscriber{
+    PostUpdateSubscriber {
+
+    class testObject: YuiClickableObject(Texture("reina/yUi/rintezuka.png")) {
+        override fun onUnhover() {
+        }
+
+        override fun onHover() {
+        }
+
+        override fun onClick() {
+        }
+
+    }
+
+    override fun receivePostUpdate() {
+    }
 
     init {
         BaseMod.subscribe(this)
@@ -21,9 +38,6 @@ class Yui() :
         fun initialize() {
             Yui()
         }
-    }
-
-    override fun receivePostInitialize() {
     }
 
     /**
