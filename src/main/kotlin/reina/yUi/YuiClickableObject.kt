@@ -31,8 +31,7 @@ abstract class YuiClickableObject(private val texture: Texture) : ClickableUIEle
         super.render(sb)
         if (Settings.isDebug)
             FontHelper.renderFontCentered(sb, FontHelper.energyNumFontPurple, x.toString(),
-                texture.width.toFloat() / Settings.scale, texture.height.toFloat() / Settings.scale
-            )
+                texture.width.toFloat() / Settings.scale, texture.height.toFloat() / Settings.scale)
     }
 
 }
