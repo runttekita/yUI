@@ -25,9 +25,6 @@ class Yui() :
 
     override fun receivePostInitialize() {
     }
-
-
-
     
     /**
      * Idea taken from Alchyr
