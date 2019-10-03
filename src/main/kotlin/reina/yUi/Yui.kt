@@ -14,26 +14,6 @@ import java.util.*
 class Yui() :
     PostRenderSubscriber,
     PostUpdateSubscriber {
-    var testObj: TestObject = TestObject()
-    class TestObject: YuiClickableObject(Texture("reina/yUi/rintezuka.png")) {
-        override fun onUnhover() {
-        }
-
-        override fun onHover() {
-        }
-
-        override fun onClick() {
-        }
-
-    }
-
-    override fun receivePostUpdate() {
-        testObj.update()
-    }
-
-    override fun receivePostRender(sb: SpriteBatch?) {
-        testObj.render(sb)
-    }
 
     init {
         BaseMod.subscribe(this)
