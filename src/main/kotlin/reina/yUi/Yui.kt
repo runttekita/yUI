@@ -25,7 +25,7 @@ class Yui() :
 
     override fun receivePostInitialize() {
     }
-    
+
     /**
      * Idea taken from Alchyr
      * ASCII Art made from
