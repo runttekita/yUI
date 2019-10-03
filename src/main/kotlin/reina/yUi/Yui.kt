@@ -13,13 +13,13 @@ import java.util.*
 @SpireInitializer
 class Yui() :
     PostRenderSubscriber {
-    
-    override fun receivePostRender(p0: SpriteBatch?) {
-    }
 
     init {
         BaseMod.subscribe(this)
         println("dab")
+    }
+
+    override fun receivePostRender(p0: SpriteBatch?) {
     }
 
     companion object {
