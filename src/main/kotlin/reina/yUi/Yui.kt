@@ -12,8 +12,10 @@ import java.util.*
 
 @SpireInitializer
 class Yui() :
-    PostRenderSubscriber,
-    PostUpdateSubscriber {
+    PostRenderSubscriber {
+    
+    override fun receivePostRender(p0: SpriteBatch?) {
+    }
 
     init {
         BaseMod.subscribe(this)
