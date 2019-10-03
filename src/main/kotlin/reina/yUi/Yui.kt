@@ -1,9 +1,10 @@
 package reina.yUi
 
 import basemod.BaseMod
-import basemod.interfaces.PostInitializeSubscriber
+import basemod.interfaces.PostRenderSubscriber
 import basemod.interfaces.PostUpdateSubscriber
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.evacipated.cardcrawl.modthespire.lib.SpireEnum
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer
 import com.megacrit.cardcrawl.cards.AbstractCard
@@ -11,9 +12,10 @@ import java.util.*
 
 @SpireInitializer
 class Yui() :
+    PostRenderSubscriber,
     PostUpdateSubscriber {
-
-    class testObject: YuiClickableObject(Texture("reina/yUi/rintezuka.png")) {
+    var testObj: TestObject = TestObject()
+    class TestObject: YuiClickableObject(Texture("reina/yUi/rintezuka.png")) {
         override fun onUnhover() {
         }
 
@@ -26,6 +28,11 @@ class Yui() :
     }
 
     override fun receivePostUpdate() {
+        testObj.update()
+    }
+
+    override fun receivePostRender(sb: SpriteBatch?) {
+        testObj.render(sb)
     }
 
     init {
