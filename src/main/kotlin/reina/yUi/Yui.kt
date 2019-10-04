@@ -53,13 +53,6 @@ class Yui() :
 
 
     companion object {
-        public val inputMove = InputAction(Input.Keys.J)
-        public val inputNudge = InputAction(Input.Keys.K)
-        public val inputUp = InputAction(Input.Keys.UP)
-        public val inputRight = InputAction(Input.Keys.RIGHT)
-        public val inputLeft = InputAction(Input.Keys.LEFT)
-        public val inputDown = InputAction(Input.Keys.DOWN)
-
         public fun autoplace(anchorElement: YuiClickableObject, placedElement: YuiClickableObject) {
             val anchorX = anchorElement.getX()
             val anchorY = anchorElement.getY()
