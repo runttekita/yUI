@@ -18,7 +18,6 @@ import com.megacrit.cardcrawl.helpers.input.InputHelper
  * Features:
  * Move Mode:
  *  Press J while hovering over your yUi Element in debug mode to make it snap to your mouse
- *  and display the x, y values you want to put into the parameters.
  * Nudge Mode:
  *  Press K while hovering over your yUi element in debug mode to be able to press the arrow
  *  keys to slightly nudge your element.
