@@ -29,34 +29,14 @@ import java.util.*
 @SpireInitializer
 class Yui() :
     RenderSubscriber {
-    var cardOne: YuiCard? = null
-    var cardTwo: YuiCard? = null
-    var cardThree: YuiCard? = null
+
 
     init {
         BaseMod.subscribe(this)
     }
 
     override fun receiveRender(sb: SpriteBatch) {
-        if (CardCrawlGame.dungeon != null && AbstractDungeon.player != null) {
-            if (cardOne == null) {
-                cardOne = YuiCard(Strike_Red().makeStatEquivalentCopy(), Settings.WIDTH / 2f, Settings.HEIGHT / 2f, false)
-            }
-            if (cardTwo == null) {
-                cardTwo = YuiCard(Strike_Green().makeStatEquivalentCopy(), Settings.WIDTH / 2f, Settings.HEIGHT / 2f, false)
-            }
-            if (cardThree == null) {
-                cardThree = YuiCard(Strike_Blue().makeStatEquivalentCopy(), Settings.WIDTH / 2f, Settings.HEIGHT / 2f, false)
-            }
-            autoPlaceHorizontallyWithVerticalOffset(cardOne!!, cardTwo!!, 50f)
-            autoPlaceVerticallyWithHorizontalOffset(cardTwo!!, cardThree!!, 50f)
-            cardOne!!.render(sb)
-            cardThree!!.render(sb)
-            cardTwo!!.render(sb)
-            cardOne!!.update()
-            cardTwo!!.update()
-            cardThree!!.update()
-        }
+
     }
 
     companion object {
