@@ -29,7 +29,7 @@ UI in STS is a pain dude.
   Press L while in Move or Nudge mode to exit mode.
   
  ## Autoplace
-  You can call `autoPlaceHorizontally()` or `autoPlaceVertically()` to automatically place an element relative to another unit.
+  You can call `autoPlaceHorizontally()` or `autoPlaceVertically()` to automatically place an element relative to another element.
 
 
 # How To Use
