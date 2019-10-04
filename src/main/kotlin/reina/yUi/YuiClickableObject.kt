@@ -33,7 +33,7 @@ import javax.swing.JFileChooser
  * Print:
  *  Prints coordinates and texture width and height to console.
  */
-abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Float) :
+abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Float) :
     ClickableUIElement(texture, x, y, texture.width.toFloat(), texture.height.toFloat()) {
     private val inputFile = InputAction(Input.Keys.H)
     private val inputMove = InputAction(Input.Keys.J)
@@ -163,7 +163,7 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
         }
     }
 
-    override fun render(sb: SpriteBatch?) {
+    override fun render(sb: SpriteBatch) {
         super.render(sb)
         if (Settings.isDebug) {
             FontHelper.renderFontCentered(sb, FontHelper.energyNumFontPurple, "x: $xValue", x, y)
