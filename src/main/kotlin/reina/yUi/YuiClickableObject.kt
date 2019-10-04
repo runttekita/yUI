@@ -52,8 +52,8 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
     override fun render(sb: SpriteBatch?) {
         super.render(sb)
         if (Settings.isDebug) {
-            FontHelper.renderFontCentered(sb, FontHelper.energyNumFontPurple, x.toString(), x, y)
-            FontHelper.renderFontCentered(sb, FontHelper.energyNumFontPurple, y.toString(), x + 15 * Settings.scale, y)
+            FontHelper.renderFontCentered(sb, FontHelper.energyNumFontPurple, (x / Settings.scale).toString(), x, y)
+            FontHelper.renderFontCentered(sb, FontHelper.energyNumFontPurple, (y / Settings.scale).toString(), x, y + 100 * Settings.scale)
         }
     }
 
