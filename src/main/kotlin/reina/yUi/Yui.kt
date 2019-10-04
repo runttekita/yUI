@@ -25,37 +25,13 @@ import java.util.*
 @SpireInitializer
 class Yui() :
     RenderSubscriber {
-    private var test: Test? = null
-    private var test2: Test? = null
 
     init {
         BaseMod.subscribe(this)
     }
 
     override fun receiveRender(sb: SpriteBatch) {
-        if (test == null)
-            test = Test(Settings.WIDTH/2F, Settings.HEIGHT/2F)
-        if (test2 == null)
-            test2 = Test(0f, 0f)
-        if (AbstractDungeon.player != null) {
-            test!!.update()
-            test!!.render(sb)
-            test2!!.update()
-            test2!!.render(sb)
-            autoPlaceVertically(test!!, test2!!)
-        }
     }
-
-    class Test(x: Float, y: Float): YuiClickableObject(Texture("reina/yUi/images/journey.png"), x, y) {
-
-        override fun onClick() {
-        }
-
-        override fun onUnhover() {
-        }
-
-    }
-
 
     companion object {
         /**
