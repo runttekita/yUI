@@ -112,7 +112,6 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
                         "y: $yValue\n" +
                         "width: ${image.width}\n" +
                         "height: ${image.height}"
-
                 )
             }
         }
