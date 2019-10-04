@@ -35,7 +35,6 @@ class Yui() :
     PostInitializeSubscriber {
 
     private var inputSpawnYui: InputAction? = null
-    private var listOfYui = ArrayList<SimpleYuiObject>()
 
     init {
         BaseMod.subscribe(this)
@@ -59,6 +58,26 @@ class Yui() :
     }
 
     companion object {
+        private var listOfYui = ArrayList<YuiClickableObject>()
+
+        public fun add(yuiElement: YuiClickableObject) {
+            listOfYui.add(yuiElement)
+        }
+
+        public fun remove(yuiElement: YuiClickableObject) {
+            listOfYui.remove(yuiElement)
+        }
+
+        public fun makeTop(yuiElement: YuiClickableObject) {
+            listOfYui.remove(yuiElement)
+            listOfYui.add(yuiElement)
+        }
+
+        public fun makeBottom(yuiElement: YuiClickableObject) {
+            listOfYui.remove(yuiElement)
+            listOfYui.add(0, yuiElement)
+        }
+
         /**
          * @param anchorElement The element you want to be placed nearby
          * @param placedElement The element being moved
