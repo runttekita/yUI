@@ -37,6 +37,8 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
     override fun update() {
         super.update()
         moveMode()
+        xValue = x / Settings.scale
+        yValue = x / Settings.scale
     }
 
     private fun moveMode() {
