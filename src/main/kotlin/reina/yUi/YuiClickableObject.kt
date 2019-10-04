@@ -74,12 +74,16 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
         yValue = y / Settings.scale
     }
 
+    private fun moveHitboxes() {
+        hitbox.x = x
+        hitbox.y = y
+    }
+
     private fun moveMode() {
         if (Mode.MOVE.on) {
             x = InputHelper.mX.toFloat()
             y = InputHelper.mY.toFloat()
-            hitbox.x = x
-            hitbox.y = y
+            moveHitboxes()
             waitTimer -= Gdx.graphics.deltaTime
             if (inputMove.isPressed && waitTimer < 0)
                 Mode.MOVE.on = false
@@ -88,6 +92,7 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
 
     private fun nudgeMode() {
         if (Mode.NUDGE.on) {
+            moveHitboxes()
             if (inputUp.isPressed) {
                 y += 10 * Settings.scale
             }
