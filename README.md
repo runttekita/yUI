@@ -34,6 +34,10 @@ UI in STS is a pain dude.
  ## Print:
  
   Press P while hovering over your yUi element in debug mode to print coordinates and texture width and height to console.
+  
+  ## Spawn Yui
+  
+    Spawn a simple yUi element at your cursor in debug mode by pressing N.
 
 
 # How To Use
