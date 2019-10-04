@@ -19,19 +19,12 @@ import java.util.*
 @SpireInitializer
 class Yui() :
     RenderSubscriber {
-    var test: Test? = null
 
     init {
         BaseMod.subscribe(this)
     }
 
     override fun receiveRender(sb: SpriteBatch) {
-        if (test == null)
-            test = Test()
-        if (AbstractDungeon.player != null) {
-            test!!.update()
-            test!!.render(sb)
-        }
     }
 
     companion object {
