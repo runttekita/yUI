@@ -72,8 +72,8 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
     override fun onHover() {
         if (Settings.isDebug) {
             if (inputMove.isJustPressed) {
-                enterMode(Mode.MOVE)
                 waitTimer = 0.5f
+                enterMode(Mode.MOVE)
             }
             if (inputNudge.isJustPressed) {
                 enterMode(Mode.NUDGE)
