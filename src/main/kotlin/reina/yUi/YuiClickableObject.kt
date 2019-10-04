@@ -47,6 +47,7 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
     private val inputPrint = InputAction(Input.Keys.P)
     private val inputPriority = InputAction(Input.Keys.TAB)
     private val inputDeprioritize = InputAction(Input.Keys.SHIFT_LEFT)
+    private val inputDelete = InputAction(Input.Keys.X)
     protected var xValue = x / Settings.scale
     protected var yValue = y / Settings.scale
     private var priority: Int = 0
@@ -100,6 +101,13 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
                     Yui.deprioritize(this)
                 } else if (Yui.isPost(this)) {
                     Yui.deprioritizePost(this)
+                }
+            }
+            if (inputDelete.isJustPressed) {
+                if (Yui.isRegular(this)) {
+                    Yui.remove(this)
+                } else if (Yui.isPost(this)) {
+                    Yui.removePost(this)
                 }
             }
             if (inputMove.isJustPressed) {
