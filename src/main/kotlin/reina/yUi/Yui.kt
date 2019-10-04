@@ -45,6 +45,9 @@ class Yui() :
         inputSpawnYui = InputAction(Input.Keys.N)
     }
 
+    /**
+     * Press N in debug mode to spawn a Simple Yui Object at your mouse location.
+     */
     override fun receiveRender(sb: SpriteBatch) {
         if (AbstractDungeon.player != null && inputSpawnYui!!.isJustPressed) {
             listOfYui.add(SimpleYuiObject())
