@@ -33,6 +33,12 @@ import javax.swing.JFileChooser
  *  Press L while in Move or Nudge mode to exit mode.
  * Print:
  *  Prints coordinates and texture width and height to console.
+ * Delete:
+ *  Press X while hovering over your yUi Element in debug mode to delete it.
+ * Priority:
+ *   Press TAB while hovering over your yUi Element in debug mode to make it be rendered on top
+ * Deprioritize:
+ *   Press L-SHIFT while hovering over your yUi Element in debug mode to make it be render on the bottom
  */
 abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Float) :
     ClickableUIElement(texture, x, y, texture!!.width.toFloat(), texture.height.toFloat()) {
