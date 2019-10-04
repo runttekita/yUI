@@ -4,6 +4,7 @@ import basemod.BaseMod
 import basemod.interfaces.PostRenderSubscriber
 import basemod.interfaces.PostUpdateSubscriber
 import basemod.interfaces.RenderSubscriber
+import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
@@ -14,6 +15,7 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer
 import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
+import com.megacrit.cardcrawl.helpers.input.InputAction
 import java.util.*
 
 @SpireInitializer
@@ -45,6 +47,13 @@ class Yui() :
 
 
     companion object {
+        public val inputMove = InputAction(Input.Keys.J)
+        public val inputNudge = InputAction(Input.Keys.K)
+        public val inputUp = InputAction(Input.Keys.UP)
+        public val inputRight = InputAction(Input.Keys.RIGHT)
+        public val inputLeft = InputAction(Input.Keys.LEFT)
+        public val inputDown = InputAction(Input.Keys.DOWN)
+
         @JvmStatic
         fun initialize() {
             Yui()

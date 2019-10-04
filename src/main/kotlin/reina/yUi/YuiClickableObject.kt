@@ -7,7 +7,8 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.helpers.FontHelper
-import com.megacrit.cardcrawl.helpers.input.InputAction
+import com.megacrit.cardcrawl.helpers.Yui.input.InputAction
+import com.megacrit.cardcrawl.helpers.Yui.input.InputHelper
 import com.megacrit.cardcrawl.helpers.input.InputHelper
 
 /**
@@ -24,12 +25,6 @@ import com.megacrit.cardcrawl.helpers.input.InputHelper
  */
 abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Float) :
     ClickableUIElement(texture, x, y, texture.width.toFloat(), texture.height.toFloat()) {
-    private val inputMove = InputAction(Input.Keys.J)
-    private val inputNudge = InputAction(Input.Keys.K)
-    private val inputUp = InputAction(Input.Keys.UP)
-    private val inputRight = InputAction(Input.Keys.RIGHT)
-    private val inputLeft = InputAction(Input.Keys.LEFT)
-    private val inputDown = InputAction(Input.Keys.DOWN)
     private var waitTimer = 0.5f
     private var xValue = x / Settings.scale
     private var yValue = y / Settings.scale
@@ -53,11 +48,11 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
 
     override fun onHover() {
         if (Settings.isDebug) {
-            if (inputMove.isJustPressed) {
+            if (Yui.inputMove.isJustPressed) {
                 enterMode(Mode.MOVE)
                 waitTimer = 0.5f
             }
-            if (inputNudge.isJustPressed) {
+            if (Yui.inputNudge.isJustPressed) {
                 enterMode(Mode.NUDGE)
             }
         }
@@ -84,7 +79,7 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
             y = InputHelper.mY.toFloat()
             moveHitboxes()
             waitTimer -= Gdx.graphics.deltaTime
-            if (inputMove.isPressed && waitTimer < 0)
+            if (Yui.inputMove.isPressed && waitTimer < 0)
                 Mode.MOVE.on = false
         }
     }
@@ -92,16 +87,16 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
     private fun nudgeMode() {
         if (Mode.NUDGE.on) {
             moveHitboxes()
-            if (inputUp.isPressed) {
+            if (Yui.inputUp.isPressed) {
                 y += 3 * Settings.scale
             }
-            if (inputDown.isPressed) {
+            if (Yui.inputDown.isPressed) {
                 y -= 3 * Settings.scale
             }
-            if (inputRight.isPressed) {
+            if (Yui.inputRight.isPressed) {
                 x += 3 * Settings.scale
             }
-            if (inputLeft.isPressed) {
+            if (Yui.inputLeft.isPressed) {
                 x -= 3 * Settings.scale
             }
         }
