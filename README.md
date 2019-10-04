@@ -1,4 +1,8 @@
-UI in STS is a pain dude.
+Adding in a GUI to make UI creation easier in Slay The Spire.
+
+yUi doesnt stand for anything.
+
+The name Yui just sounds like UI.
 
 # Features:
 
