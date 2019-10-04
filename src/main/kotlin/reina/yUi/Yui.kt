@@ -30,7 +30,9 @@ import kotlin.collections.ArrayList
 class Yui() :
     RenderSubscriber,
     PostRenderSubscriber,
-    PostInitializeSubscriber {
+    PostInitializeSubscriber,
+    PreUpdateSubscriber,
+    PostUpdateSubscriber {
 
     private var inputSpawnYui: InputAction? = null
 
@@ -42,6 +44,38 @@ class Yui() :
         inputSpawnYui = InputAction(Input.Keys.N)
     }
 
+    override fun receivePreUpdate() {
+        for (yui in listOfYui) {
+            yui.update()
+        }
+        for (yui in toPrioritize) {
+            listOfYui.remove(yui)
+            listOfYui.add(yui)
+        }
+        toPrioritize.clear()
+        for (yui in toDeprioritize) {
+            listOfYui.remove(yui)
+            listOfYui.add(0, yui)
+        }
+        toDeprioritize.clear()
+    }
+
+    override fun receivePostUpdate() {
+        for (yui in listOfPostYui) {
+            yui.update()
+        }
+        for (yui in toPrioritizePost) {
+            listOfPostYui.remove(yui)
+            listOfPostYui.add(yui)
+        }
+        toPrioritizePost.clear()
+        for (yui in toDeprioritizePost) {
+            listOfPostYui.remove(yui)
+            listOfPostYui.add(0, yui)
+        }
+        toDeprioritizePost.clear()
+    }
+
     /**
      * Press N in debug mode to spawn a Simple Yui Object at your mouse location.
      */
@@ -51,20 +85,22 @@ class Yui() :
         }
         for (yui in listOfYui) {
             yui.render(sb)
-            yui.update()
         }
     }
 
     override fun receivePostRender(sb: SpriteBatch) {
         for (yui in listOfPostYui) {
             yui.render(sb)
-            yui.update()
         }
     }
 
     companion object {
         private var listOfYui = ArrayList<YuiClickableObject>()
         private var listOfPostYui = ArrayList<YuiClickableObject>()
+        private var toPrioritize = ArrayList<YuiClickableObject>()
+        private var toDeprioritize = ArrayList<YuiClickableObject>()
+        private var toPrioritizePost = ArrayList<YuiClickableObject>()
+        private var toDeprioritizePost = ArrayList<YuiClickableObject>()
 
         public fun add(yuiElement: YuiClickableObject) {
             listOfYui.add(yuiElement)
@@ -75,13 +111,11 @@ class Yui() :
         }
 
         public fun prioritize(yuiElement: YuiClickableObject) {
-            listOfYui.remove(yuiElement)
-            listOfYui.add(yuiElement)
+            toPrioritize.add(yuiElement)
         }
 
         public fun deprioritize(yuiElement: YuiClickableObject) {
-            listOfYui.remove(yuiElement)
-            listOfYui.add(0, yuiElement)
+            toDeprioritize.add(yuiElement)
         }
 
         public fun addPost(yuiElement: YuiClickableObject) {
@@ -93,13 +127,11 @@ class Yui() :
         }
 
         public fun prioritizePost(yuiElement: YuiClickableObject) {
-            listOfPostYui.remove(yuiElement)
-            listOfPostYui.add(yuiElement)
+            toPrioritizePost.add(yuiElement)
         }
 
         public fun deprioritizePost(yuiElement: YuiClickableObject) {
-            listOfYui.remove(yuiElement)
-            listOfPostYui.add(0, yuiElement)
+            toDeprioritizePost.add(yuiElement)
         }
 
         public fun isRegular(yuiElement: YuiClickableObject): Boolean {
