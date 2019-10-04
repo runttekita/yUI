@@ -37,7 +37,7 @@ class Yui() :
             test!!.render(sb)
             test2!!.update()
             test2!!.render(sb)
-            autoplace(test!!, test2!!)
+            autoplaceHorizontally(test!!, test2!!, 30f)
         }
     }
 
@@ -53,11 +53,32 @@ class Yui() :
 
 
     companion object {
-        public fun autoplace(anchorElement: YuiClickableObject, placedElement: YuiClickableObject) {
+        public fun autoplaceHorizontally(anchorElement: YuiClickableObject, placedElement: YuiClickableObject) {
             val anchorX = anchorElement.getX()
             val anchorY = anchorElement.getY()
             placedElement.setX(anchorX + anchorElement.getWidth())
             placedElement.setY(anchorY)
+        }
+
+        public fun autoplaceHorizontally(anchorElement: YuiClickableObject, placedElement: YuiClickableObject, padding: Float) {
+            val anchorX = anchorElement.getX()
+            val anchorY = anchorElement.getY()
+            placedElement.setX(anchorX + anchorElement.getWidth() + padding)
+            placedElement.setY(anchorY)
+        }
+
+        public fun autoPlaceVertically(anchorElement: YuiClickableObject, placedElement: YuiClickableObject) {
+            val anchorX = anchorElement.getX()
+            val anchorY = anchorElement.getY()
+            placedElement.setX(anchorX)
+            placedElement.setY(anchorY - anchorElement.getHeight())
+        }
+
+        public fun autoPlaceVertically(anchorElement: YuiClickableObject, placedElement: YuiClickableObject, padding: Float) {
+            val anchorX = anchorElement.getX()
+            val anchorY = anchorElement.getY()
+            placedElement.setX(anchorX)
+            placedElement.setY(anchorY - anchorElement.getHeight() - padding)
         }
 
         @JvmStatic

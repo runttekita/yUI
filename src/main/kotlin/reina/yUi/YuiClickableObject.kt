@@ -37,7 +37,7 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
     private var yValue = y / Settings.scale
 
     public fun getX(): Float {
-        return x 
+        return x
     }
 
     public fun getY(): Float {
