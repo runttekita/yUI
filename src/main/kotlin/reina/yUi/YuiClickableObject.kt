@@ -30,6 +30,8 @@ import javax.swing.JFileChooser
  *  keys to slightly nudge your element.
  * Exit Mode:
  *  Press L while in Move or Nudge mode to exit mode.
+ * Print:
+ *  Prints coordinates and texture width and height to console.
  */
 abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Float) :
     ClickableUIElement(texture, x, y, texture.width.toFloat(), texture.height.toFloat()) {
@@ -41,6 +43,7 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
     private val inputRight = InputAction(Input.Keys.RIGHT)
     private val inputLeft = InputAction(Input.Keys.LEFT)
     private val inputDown = InputAction(Input.Keys.DOWN)
+    private val inputPrint = InputAction(Input.Keys.P)
     private var xValue = x / Settings.scale
     private var yValue = y / Settings.scale
 
@@ -102,6 +105,15 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
                     hitbox.update()
                     Mode.FILE.on = false
                 }
+            }
+            if (inputPrint.isJustPressed) {
+                println("" +
+                        "x: $xValue\n" +
+                        "y: $yValue\n" +
+                        "width: ${image.width}\n" +
+                        "height: ${image.height}"
+
+                )
             }
         }
 
