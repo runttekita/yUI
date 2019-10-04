@@ -34,16 +34,6 @@ class Yui() :
         }
     }
 
-    class Test: YuiClickableObject(Texture("reina/yUi/images/journey.png"), Settings.WIDTH / 2f, Settings.HEIGHT / 2f) {
-
-        override fun onClick() {
-        }
-
-        override fun onUnhover() {
-        }
-
-    }
-
     companion object {
         @JvmStatic
         fun initialize() {
