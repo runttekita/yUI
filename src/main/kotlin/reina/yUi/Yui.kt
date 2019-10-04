@@ -74,12 +74,12 @@ class Yui() :
             listOfYui.remove(yuiElement)
         }
 
-        public fun makeTop(yuiElement: YuiClickableObject) {
+        public fun prioritize(yuiElement: YuiClickableObject) {
             listOfYui.remove(yuiElement)
             listOfYui.add(yuiElement)
         }
 
-        public fun makeBottom(yuiElement: YuiClickableObject) {
+        public fun deprioritize(yuiElement: YuiClickableObject) {
             listOfYui.remove(yuiElement)
             listOfYui.add(0, yuiElement)
         }
@@ -92,14 +92,22 @@ class Yui() :
             listOfPostYui.remove(yuiElement)
         }
 
-        public fun makeTopPost(yuiElement: YuiClickableObject) {
+        public fun prioritizePost(yuiElement: YuiClickableObject) {
             listOfPostYui.remove(yuiElement)
             listOfPostYui.add(yuiElement)
         }
 
-        public fun makeBottomPost(yuiElement: YuiClickableObject) {
+        public fun deprioritizePost(yuiElement: YuiClickableObject) {
             listOfYui.remove(yuiElement)
             listOfPostYui.add(0, yuiElement)
+        }
+
+        public fun isRegular(yuiElement: YuiClickableObject): Boolean {
+            return listOfYui.contains(yuiElement)
+        }
+
+        public fun isPost(yuiElement: YuiClickableObject): Boolean {
+            return listOfPostYui.contains(yuiElement)
         }
 
         /**

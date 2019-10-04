@@ -45,6 +45,8 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
     private val inputLeft = InputAction(Input.Keys.LEFT)
     private val inputDown = InputAction(Input.Keys.DOWN)
     private val inputPrint = InputAction(Input.Keys.P)
+    private val inputPriority = InputAction(Input.Keys.TAB)
+    private val inputDeprioritize = InputAction(Input.Keys.SHIFT_LEFT)
     protected var xValue = x / Settings.scale
     protected var yValue = y / Settings.scale
     private var priority: Int = 0
@@ -86,6 +88,20 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
 
     override fun onHover() {
         if (Settings.isDebug) {
+            if (inputPriority.isJustPressed) {
+                if (Yui.isRegular(this)) {
+                    Yui.prioritize(this)
+                } else if (Yui.isPost(this)) {
+                    Yui.prioritizePost(this)
+                }
+            }
+            if (inputDeprioritize.isJustPressed) {
+                if (Yui.isRegular(this)) {
+                    Yui.deprioritize(this)
+                } else if (Yui.isPost(this)) {
+                    Yui.deprioritizePost(this)
+                }
+            }
             if (inputMove.isJustPressed) {
                 enterMode(Mode.MOVE)
             }
