@@ -57,7 +57,7 @@ UI in STS is a pain dude.
 Extend `YuiClickableObject` to make your own UI element. 
 
 To render your yUi element call `Yui.Companion.add()` and pass it an instance of your element.
-All the various methods you can use on your element can be found in [Yui.kt](https://github.com/velvet-halation/yUI/blob/master/src/main/kotlin/reina/yUi/Yui.kt) in the `companion object`
+All the various methods you can use on your element can be found in [Yui.kt](https://github.com/velvet-halation/yUI/blob/master/src/main/kotlin/reina/yUi/Yui.kt#L134) in the `companion object`
 
 Read the documentation:
 
