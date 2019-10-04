@@ -50,6 +50,10 @@ https://github.com/velvet-halation/yUI/blob/master/src/main/kotlin/reina/yUi/Yui
 
 https://github.com/velvet-halation/yUI/blob/master/src/main/kotlin/reina/yUi/YuiClickableObject.kt
 
+An example Yui element:
+
+https://github.com/velvet-halation/yUI/blob/master/src/main/kotlin/reina/yUi/SimpleYuiObject.kt
+
 ## Build this yourself
 ```
 $ git clone
