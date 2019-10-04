@@ -37,7 +37,7 @@ UI in STS is a pain dude.
   
   ## Spawn Yui
   
-    Spawn a simple yUi element at your cursor in debug mode by pressing N.
+   Spawn a simple yUi element at your cursor in debug mode by pressing N.
 
 
 # How To Use
