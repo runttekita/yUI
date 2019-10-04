@@ -78,6 +78,10 @@ class Yui() :
             placedElement.setY(anchorY + anchorElement.getHeight() + padding)
         }
 
+        /**
+         * @param offset Places placedElement above anchorElement then moves it to the right
+         * by your offset
+         */
         public fun autoPlaceVerticallyWithHorizontalOffset
                     (anchorElement: YuiClickableObject, placedElement: YuiClickableObject, offset: Float) {
             val anchorX = anchorElement.getX()
@@ -86,6 +90,10 @@ class Yui() :
             placedElement.setY(anchorY + anchorElement.getHeight())
         }
 
+        /**
+         * Same as above but places the placedElement to the right then moves it up or down
+         * by your offset
+         */
         public fun autoPlaceHorizontallyWithVerticalOffset
                     (anchorElement: YuiClickableObject, placedElement: YuiClickableObject, offset: Float) {
             val anchorX = anchorElement.getX()
