@@ -25,9 +25,8 @@ import com.megacrit.cardcrawl.helpers.input.InputHelper
  */
 abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Float) :
     ClickableUIElement(texture, x, y, texture.width.toFloat(), texture.height.toFloat()) {
-    public var inMoveMode= false
     private val inputMove = InputAction(Input.Keys.J)
-    private val inputNudge = InputAction(Input.Keys.L)
+    private val inputNudge = InputAction(Input.Keys.K)
     private val inputUp = InputAction(Input.Keys.UP)
     private val inputRight = InputAction(Input.Keys.RIGHT)
     private val inputLeft = InputAction(Input.Keys.LEFT)
@@ -83,7 +82,7 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
             hitbox.y = y
             waitTimer -= Gdx.graphics.deltaTime
             if (inputMove.isPressed && waitTimer < 0)
-                inMoveMode = !inMoveMode
+                Mode.MOVE.on = false
         }
     }
 
