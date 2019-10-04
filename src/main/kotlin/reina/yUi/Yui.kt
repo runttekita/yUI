@@ -57,7 +57,7 @@ class Yui() :
             val anchorX = anchorElement.getX()
             val anchorY = anchorElement.getY()
             placedElement.setX(anchorX + anchorElement.getWidth())
-            placedElement.setY(anchorY + anchorElement.getHeight())
+            placedElement.setY(anchorY)
         }
 
         @JvmStatic
