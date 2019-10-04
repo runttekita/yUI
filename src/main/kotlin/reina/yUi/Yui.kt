@@ -19,13 +19,30 @@ import java.util.*
 @SpireInitializer
 class Yui() :
     RenderSubscriber {
-
+    private var test: Test? = null
     init {
         BaseMod.subscribe(this)
     }
 
     override fun receiveRender(sb: SpriteBatch) {
+        if (test == null)
+            test = Test()
+        if (AbstractDungeon.player != null) {
+            test!!.update()
+            test!!.render(sb)
+        }
     }
+
+    class Test: YuiClickableObject(Texture("reina/yUi/images/journey.png"), Settings.WIDTH / 2f, Settings.HEIGHT / 2f) {
+
+        override fun onClick() {
+        }
+
+        override fun onUnhover() {
+        }
+
+    }
+
 
     companion object {
         @JvmStatic

@@ -5,8 +5,6 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.evacipated.cardcrawl.mod.stslib.patches.HitboxRightClick
-import com.megacrit.cardcrawl.core.CardCrawlGame
 import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.helpers.FontHelper
 import com.megacrit.cardcrawl.helpers.input.InputAction
@@ -19,14 +17,17 @@ import com.megacrit.cardcrawl.helpers.input.InputHelper
  *
  * Features:
  * Move Mode:
- *  Press L while hovering over your yUi Element in debug mode to make it snap to your mouse
- *  and display the x, y values you want to put into x/
- *  You may also use the arrow keys to nudge it ever so slightly.
+ *  Press J while hovering over your yUi Element in debug mode to make it snap to your mouse
+ *  and display the x, y values you want to put into the parameters.
+ * Nudge Mode:
+ *  Press K while hovering over your yUi element in debug mode to be able to press the arrow
+ *  keys to slightly nudge your element.
  */
 abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Float) :
     ClickableUIElement(texture, x, y, texture.width.toFloat(), texture.height.toFloat()) {
     public var inMoveMode= false
-    private val inputMove = InputAction(Input.Keys.L)
+    private val inputMove = InputAction(Input.Keys.J)
+    private val inputNudge = InputAction(Input.Keys.L)
     private val inputUp = InputAction(Input.Keys.UP)
     private val inputRight = InputAction(Input.Keys.RIGHT)
     private val inputLeft = InputAction(Input.Keys.LEFT)
@@ -42,24 +43,52 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
         hitbox.y = y
     }
 
+    enum class Mode(var on: Boolean) {
+        MOVE(false),
+        NUDGE(false)
+    }
+
+    private fun enterMode(enteredMode: Mode) {
+        Mode.values().forEach { it.on = false }
+        enteredMode.on = true
+    }
+
     override fun onHover() {
-        if (inputMove.isJustPressed && Settings.isDebug) {
-            inMoveMode = !inMoveMode;
-            waitTimer = 0.5f
+        if (Settings.isDebug) {
+            if (inputMove.isJustPressed) {
+                enterMode(Mode.MOVE)
+                waitTimer = 0.5f
+            }
+            if (inputNudge.isJustPressed) {
+                enterMode(Mode.NUDGE)
+            }
         }
+
+
     }
 
     override fun update() {
         super.update()
         moveMode()
+        nudgeMode()
         xValue = x / Settings.scale
         yValue = y / Settings.scale
     }
 
     private fun moveMode() {
-        if (inMoveMode) {
+        if (Mode.MOVE.on) {
             x = InputHelper.mX.toFloat()
             y = InputHelper.mY.toFloat()
+            hitbox.x = x
+            hitbox.y = y
+            waitTimer -= Gdx.graphics.deltaTime
+            if (inputMove.isPressed && waitTimer < 0)
+                inMoveMode = !inMoveMode
+        }
+    }
+
+    private fun nudgeMode() {
+        if (Mode.NUDGE.on) {
             if (inputUp.isPressed) {
                 y += 10 * Settings.scale
             }
@@ -72,11 +101,6 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
             if (inputLeft.isPressed) {
                 x -= 10 * Settings.scale
             }
-            hitbox.x = x
-            hitbox.y = y
-            waitTimer -= Gdx.graphics.deltaTime
-            if (inputMove.isPressed && waitTimer < 0)
-                inMoveMode = !inMoveMode
         }
     }
 
