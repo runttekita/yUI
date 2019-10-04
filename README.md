@@ -33,7 +33,7 @@ UI in STS is a pain dude.
   You can call `autoPlaceHorizontally()` or `autoPlaceVertically()` to automatically place an element relative to another element.
  ## Print:
  
-  Press K while hovering over your yUi element in debug mode to print coordinates and texture width and height to console.
+  Press P while hovering over your yUi element in debug mode to print coordinates and texture width and height to console.
 
 
 # How To Use
