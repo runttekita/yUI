@@ -22,6 +22,7 @@ import java.util.*
 class Yui() :
     RenderSubscriber {
     private var test: Test? = null
+    private var test2: Test? = null
     init {
         BaseMod.subscribe(this)
     }
@@ -29,9 +30,14 @@ class Yui() :
     override fun receiveRender(sb: SpriteBatch) {
         if (test == null)
             test = Test()
+        if (test2 == null)
+            test2 = Test()
         if (AbstractDungeon.player != null) {
             test!!.update()
             test!!.render(sb)
+            test2!!.update()
+            test2!!.render(sb)
+            autoplace(test!!, test2!!)
         }
     }
 
@@ -53,6 +59,13 @@ class Yui() :
         public val inputRight = InputAction(Input.Keys.RIGHT)
         public val inputLeft = InputAction(Input.Keys.LEFT)
         public val inputDown = InputAction(Input.Keys.DOWN)
+
+        public fun autoplace(anchorElement: YuiClickableObject, placedElement: YuiClickableObject) {
+            val anchorX = anchorElement.getX()
+            val anchorY = anchorElement.getY()
+            placedElement.setX(anchorX + anchorElement.getWidth())
+            placedElement.setY(anchorY + anchorElement.getHeight())
+        }
 
         @JvmStatic
         fun initialize() {

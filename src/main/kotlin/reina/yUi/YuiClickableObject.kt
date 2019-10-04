@@ -15,6 +15,8 @@ import com.megacrit.cardcrawl.helpers.input.InputHelper
  * @param y The y value of where you want to draw it.
  *
  * Features:
+ * Coordinates:
+ *  In debug mode, you yUi element will render its coordinates before being multiplied by Settings.scale
  * Move Mode:
  *  Press J while hovering over your yUi Element in debug mode to make it snap to your mouse
  * Nudge Mode:
@@ -26,6 +28,22 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
     private var waitTimer = 0.5f
     private var xValue = x / Settings.scale
     private var yValue = y / Settings.scale
+
+    public fun getX(): Float {
+        return x / Settings.scale
+    }
+
+    public fun getY(): Float {
+        return y / Settings.scale
+    }
+
+    public fun getWidth(): Float {
+        return texture.width.toFloat()
+    }
+
+    public fun getHeight(): Float {
+        return texture.height.toFloat()
+    }
 
     init {
         this.x = x
