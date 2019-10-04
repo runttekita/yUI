@@ -9,13 +9,19 @@ import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.helpers.FontHelper
 import com.megacrit.cardcrawl.helpers.input.InputHelper
 
-abstract class YuiClickableObject(private val texture: Texture) : ClickableUIElement(texture) {
+abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Float) :
+    ClickableUIElement(texture, x, y, texture.width.toFloat(), texture.height.toFloat()) {
     private var inMoveMode: Boolean = false
+
+    init {
+        this.x = x
+        this.y = y
+    }
 
     override fun updateHitbox() {
         super.updateHitbox()
         moveMode()
-        if (HitboxRightClick.rightClicked.get(this) && Settings.isDebug)
+        if (HitboxRightClick.rightClicked.get(this.hitbox) && Settings.isDebug)
             inMoveMode = true
     }
 

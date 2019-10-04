@@ -3,23 +3,44 @@ package reina.yUi
 import basemod.BaseMod
 import basemod.interfaces.PostRenderSubscriber
 import basemod.interfaces.PostUpdateSubscriber
+import basemod.interfaces.RenderSubscriber
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.evacipated.cardcrawl.modthespire.lib.SpireEnum
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer
 import com.megacrit.cardcrawl.cards.AbstractCard
+import com.megacrit.cardcrawl.core.Settings
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import java.util.*
 
 @SpireInitializer
 class Yui() :
-    PostRenderSubscriber {
-
+    RenderSubscriber {
+    var test: Test? = null
     init {
         BaseMod.subscribe(this)
-        println("dab")
     }
 
-    override fun receivePostRender(p0: SpriteBatch?) {
+    override fun receiveRender(sb: SpriteBatch?) {
+        if (test == null)
+            test = Test()
+        if (AbstractDungeon.player != null) {
+            test!!.update()
+            test!!.render(sb)
+        }
+    }
+
+    class Test: YuiClickableObject(Texture("reina/yUi/images/journey.png"), Settings.WIDTH / 2f, Settings.HEIGHT / 2f) {
+        override fun onHover() {
+            println("dab")
+        }
+
+        override fun onClick() {
+        }
+
+        override fun onUnhover() {
+        }
+
     }
 
     companion object {
