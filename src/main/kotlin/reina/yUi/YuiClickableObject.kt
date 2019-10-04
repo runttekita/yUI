@@ -39,7 +39,7 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
             y = InputHelper.mY.toFloat()
             hitbox.x = x
             hitbox.y = y
-            if (inputMove.isJustPressed)
+            if (inputMove.isPressed)
                 inMoveMode = !inMoveMode
         }
     }
