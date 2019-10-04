@@ -47,6 +47,7 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
     protected var xValue = x / Settings.scale
     protected var yValue = y / Settings.scale
     private var priority: Int = 0
+    private var currentMode: Mode = Mode.NONE
 
     public fun getX(): Float {
         return x
@@ -74,16 +75,12 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
     enum class Mode(var on: Boolean) {
         FILE(false),
         MOVE(false),
-        NUDGE(false)
+        NUDGE(false),
+        NONE(false)
     }
 
     private fun enterMode(enteredMode: Mode) {
-        Mode.values().forEach {
-            if (it != enteredMode) {
-                it.on = false
-            }
-        }
-        enteredMode.on = true
+        currentMode = enteredMode
     }
 
     override fun onHover() {
@@ -96,15 +93,17 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
             }
             if (inputFile.isJustPressed) {
                 enterMode(Mode.FILE)
-                val fc = JFileChooser();
-                val returnVal = fc.showOpenDialog(null);
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    val file = fc.selectedFile
-                    image = Yui.assetManager.getTexture(file.absolutePath)
-                    hb_w = image.width.toFloat()
-                    hb_h = image.width.toFloat()
-                    hitbox.update()
-                    Mode.FILE.on = false
+                if (currentMode == Mode.FILE) {
+                    val fc = JFileChooser();
+                    val returnVal = fc.showOpenDialog(null);
+                    if (returnVal == JFileChooser.APPROVE_OPTION) {
+                        val file = fc.selectedFile
+                        image = Yui.assetManager.getTexture(file.absolutePath)
+                        hb_w = image.width.toFloat()
+                        hb_h = image.width.toFloat()
+                        hitbox.update()
+                        Mode.FILE.on = false
+                    }
                 }
             }
             if (inputPrint.isJustPressed) {
@@ -138,7 +137,7 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
     }
 
     private fun moveMode() {
-        if (Mode.MOVE.on) {
+        if (currentMode == Mode.MOVE) {
             x = InputHelper.mX.toFloat()
             y = InputHelper.mY.toFloat()
             moveHitboxes()
@@ -146,7 +145,7 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
     }
 
     private fun nudgeMode() {
-        if (Mode.NUDGE.on) {
+        if (currentMode == Mode.NUDGE) {
             moveHitboxes()
             if (inputUp.isPressed) {
                 y += 1 * Settings.scale
