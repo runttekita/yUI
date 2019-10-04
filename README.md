@@ -35,8 +35,11 @@ UI in STS is a pain dude.
 # How To Use
 
 Extend `YuiClickableObject` to make your own UI element. 
+
 Read the documentation:
+
 https://github.com/velvet-halation/yUI/blob/master/src/main/kotlin/reina/yUi/Yui.kt
+
 https://github.com/velvet-halation/yUI/blob/master/src/main/kotlin/reina/yUi/YuiClickableObject.kt
 
 ## Build this yourself
