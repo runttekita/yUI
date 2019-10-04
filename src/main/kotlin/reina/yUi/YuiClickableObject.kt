@@ -86,16 +86,16 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
         if (Mode.NUDGE.on) {
             moveHitboxes()
             if (Yui.inputUp.isPressed) {
-                y += 3 * Settings.scale
+                y += 1 * Settings.scale
             }
             if (Yui.inputDown.isPressed) {
-                y -= 3 * Settings.scale
+                y -= 1 * Settings.scale
             }
             if (Yui.inputRight.isPressed) {
-                x += 3 * Settings.scale
+                x += 1 * Settings.scale
             }
             if (Yui.inputLeft.isPressed) {
-                x -= 3 * Settings.scale
+                x -= 1 * Settings.scale
             }
         }
     }
