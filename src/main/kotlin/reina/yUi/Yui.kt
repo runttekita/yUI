@@ -91,7 +91,7 @@ class Yui() :
         }
 
         /**
-         * Same as above but places the placedElement to the right then moves it up or down
+         * Same as above but places the placedElement to the right then moves it up
          * by your offset
          */
         public fun autoPlaceHorizontallyWithVerticalOffset
