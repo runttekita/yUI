@@ -22,7 +22,7 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
     }
 
     override fun onHover() {
-        if (inputMove.isJustPressed)
+        if (inputMove.isJustPressed && Settings.isDebug)
             inMoveMode = !inMoveMode;
     }
 
@@ -32,11 +32,10 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
     }
 
     private fun moveMode() {
-        if (!inMoveMode) return
-        x = InputHelper.mX.toFloat()
-        y = InputHelper.mY.toFloat();
-        println(InputHelper.mX)
-        println(InputHelper.mY)
+        if (inMoveMode) {
+            x = InputHelper.mX.toFloat()
+            y = InputHelper.mY.toFloat();
+        }
     }
 
     override fun render(sb: SpriteBatch?) {
