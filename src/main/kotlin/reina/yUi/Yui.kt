@@ -37,7 +37,7 @@ class Yui() :
             test!!.render(sb)
             test2!!.update()
             test2!!.render(sb)
-            autoplaceHorizontally(test!!, test2!!, 30f)
+            autoPlaceVertically(test!!, test2!!, 30f)
         }
     }
 
@@ -78,7 +78,7 @@ class Yui() :
             val anchorX = anchorElement.getX()
             val anchorY = anchorElement.getY()
             placedElement.setX(anchorX)
-            placedElement.setY(anchorY - anchorElement.getHeight() - padding)
+            placedElement.setY(anchorY - anchorElement.getHeight() + padding)
         }
 
         @JvmStatic
