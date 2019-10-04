@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.helpers.FontHelper
 import com.megacrit.cardcrawl.helpers.input.InputAction
 import com.megacrit.cardcrawl.helpers.input.InputHelper
+import javax.swing.JFileChooser
 
 /**
  * @param texture The image you want to draw.
@@ -28,6 +29,7 @@ import com.megacrit.cardcrawl.helpers.input.InputHelper
  */
 abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Float) :
     ClickableUIElement(texture, x, y, texture.width.toFloat(), texture.height.toFloat()) {
+    private val inputFile = InputAction(Input.Keys.H)
     private val inputMove = InputAction(Input.Keys.J)
     private val inputNudge = InputAction(Input.Keys.K)
     private val inputExit = InputAction(Input.Keys.L)
@@ -47,11 +49,11 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
     }
 
     public fun getWidth(): Float {
-        return texture.width.toFloat() * Settings.scale
+        return image.width.toFloat() * Settings.scale
     }
 
     public fun getHeight(): Float {
-        return texture.height.toFloat() * Settings.scale
+        return image.height.toFloat() * Settings.scale
     }
 
     init {
@@ -62,6 +64,7 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
     }
 
     enum class Mode(var on: Boolean) {
+        FILE(false),
         MOVE(false),
         NUDGE(false)
     }
@@ -82,6 +85,17 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
             }
             if (inputNudge.isJustPressed) {
                 enterMode(Mode.NUDGE)
+            }
+            if (inputFile.isJustPressed) {
+                enterMode(Mode.FILE)
+                val fc = JFileChooser();
+                val returnVal = fc.showOpenDialog(null);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    val file = fc.selectedFile
+                    image = Yui.assetManager.getTexture(file.absolutePath)
+                    hb_w = image.width.toFloat()
+                    hb_h = image.width.toFloat()
+                }
             }
         }
 

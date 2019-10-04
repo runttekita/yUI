@@ -5,11 +5,15 @@ import basemod.interfaces.PostRenderSubscriber
 import basemod.interfaces.PostUpdateSubscriber
 import basemod.interfaces.RenderSubscriber
 import com.badlogic.gdx.Input
+import com.badlogic.gdx.assets.AssetManager
+import com.badlogic.gdx.assets.loaders.TextureLoader
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.utils.GdxRuntimeException
 import com.evacipated.cardcrawl.modthespire.lib.SpireEnum
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer
 import com.megacrit.cardcrawl.cards.AbstractCard
@@ -23,6 +27,7 @@ class Yui() :
     RenderSubscriber {
     private var test: Test? = null
     private var test2: Test? = null
+
     init {
         BaseMod.subscribe(this)
     }
@@ -98,6 +103,36 @@ class Yui() :
         @JvmStatic
         fun initialize() {
             Yui()
+        }
+
+        public val assetManager = AssetLoader()
+
+        class AssetLoader {
+            private val assets = AssetManager()
+
+            fun getTexture(fileName: String): Texture {
+                if (!assets.isLoaded(fileName, Texture::class.java)) {
+                    val param = TextureLoader.TextureParameter()
+                    param.minFilter = Texture.TextureFilter.Linear
+                    param.magFilter = Texture.TextureFilter.Linear
+                    assets.load(fileName, Texture::class.java, param)
+                    try {
+                        assets.finishLoadingAsset(fileName)
+                    } catch (e: GdxRuntimeException) {
+                        throw e
+                    }
+
+                }
+                return assets.get(fileName, Texture::class.java)
+            }
+
+            fun loadAtlas(fileName: String): TextureAtlas {
+                if (!assets.isLoaded(fileName, TextureAtlas::class.java)) {
+                    assets.load(fileName, TextureAtlas::class.java)
+                    assets.finishLoadingAsset(fileName)
+                }
+                return assets.get(fileName, TextureAtlas::class.java)
+            }
         }
     }
 
