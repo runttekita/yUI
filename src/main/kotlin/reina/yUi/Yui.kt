@@ -44,6 +44,30 @@ class Yui() :
         inputSpawnYui = InputAction(Input.Keys.N)
     }
 
+    /**
+     * Press N in debug mode to spawn a Simple Yui Object at your mouse location.
+     */
+    override fun receiveRender(sb: SpriteBatch) {
+        if (AbstractDungeon.player != null && inputSpawnYui!!.isJustPressed) {
+            listOfYui.add(SimpleYuiObject())
+        }
+        for (yui in listOfYui) {
+            yui.render(sb)
+        }
+    }
+
+    /**
+     * Renders over everything
+     */
+    override fun receivePostRender(sb: SpriteBatch) {
+        for (yui in listOfPostYui) {
+            yui.render(sb)
+        }
+    }
+
+    /**
+     * Boring behind the scenes library stuff
+     */
     override fun receivePreUpdate() {
         for (yui in listOfYui) {
             yui.update()
@@ -58,6 +82,14 @@ class Yui() :
             listOfYui.add(0, yui)
         }
         toDeprioritize.clear()
+        for (yui in yuiToAdd) {
+            listOfYui.add(yui)
+        }
+        yuiToAdd.clear()
+        for (yui in yuiToRemove) {
+            listOfYui.remove(yui)
+        }
+        yuiToRemove.clear()
     }
 
     override fun receivePostUpdate() {
@@ -74,24 +106,14 @@ class Yui() :
             listOfPostYui.add(0, yui)
         }
         toDeprioritizePost.clear()
-    }
-
-    /**
-     * Press N in debug mode to spawn a Simple Yui Object at your mouse location.
-     */
-    override fun receiveRender(sb: SpriteBatch) {
-        if (AbstractDungeon.player != null && inputSpawnYui!!.isJustPressed) {
-            listOfYui.add(SimpleYuiObject())
+        for (yui in yuiToAddPost) {
+            listOfPostYui.add(yui)
         }
-        for (yui in listOfYui) {
-            yui.render(sb)
+        yuiToAddPost.clear()
+        for (yui in yuiToRemovePost) {
+            listOfPostYui.remove(yui)
         }
-    }
-
-    override fun receivePostRender(sb: SpriteBatch) {
-        for (yui in listOfPostYui) {
-            yui.render(sb)
-        }
+        yuiToRemovePost.clear()
     }
 
     companion object {
@@ -101,46 +123,10 @@ class Yui() :
         private var toDeprioritize = ArrayList<YuiClickableObject>()
         private var toPrioritizePost = ArrayList<YuiClickableObject>()
         private var toDeprioritizePost = ArrayList<YuiClickableObject>()
-
-        public fun add(yuiElement: YuiClickableObject) {
-            listOfYui.add(yuiElement)
-        }
-
-        public fun remove(yuiElement: YuiClickableObject) {
-            listOfYui.remove(yuiElement)
-        }
-
-        public fun prioritize(yuiElement: YuiClickableObject) {
-            toPrioritize.add(yuiElement)
-        }
-
-        public fun deprioritize(yuiElement: YuiClickableObject) {
-            toDeprioritize.add(yuiElement)
-        }
-
-        public fun addPost(yuiElement: YuiClickableObject) {
-            listOfPostYui.add(yuiElement)
-        }
-
-        public fun removePost(yuiElement: YuiClickableObject) {
-            listOfPostYui.remove(yuiElement)
-        }
-
-        public fun prioritizePost(yuiElement: YuiClickableObject) {
-            toPrioritizePost.add(yuiElement)
-        }
-
-        public fun deprioritizePost(yuiElement: YuiClickableObject) {
-            toDeprioritizePost.add(yuiElement)
-        }
-
-        public fun isRegular(yuiElement: YuiClickableObject): Boolean {
-            return listOfYui.contains(yuiElement)
-        }
-
-        public fun isPost(yuiElement: YuiClickableObject): Boolean {
-            return listOfPostYui.contains(yuiElement)
-        }
+        private var yuiToRemove = ArrayList<YuiClickableObject>()
+        private var yuiToRemovePost = ArrayList<YuiClickableObject>()
+        private var yuiToAdd = ArrayList<YuiClickableObject>()
+        private var yuiToAddPost = ArrayList<YuiClickableObject>()
 
         /**
          * @param anchorElement The element you want to be placed nearby
@@ -208,6 +194,51 @@ class Yui() :
             val anchorY = anchorElement.getY()
             placedElement.setX(anchorX + anchorElement.getWidth())
             placedElement.setY(anchorY + offset)
+        }
+
+        /**
+         * These messages are all for automatically rendering and updating your yUi elements
+         * So you don't have to
+         * You can also change the priority or the order in which things render.
+         */
+        public fun add(yuiElement: YuiClickableObject) {
+            yuiToAdd.add((yuiElement))
+        }
+
+        public fun remove(yuiElement: YuiClickableObject) {
+            yuiToRemove.add(yuiElement)
+        }
+
+        public fun prioritize(yuiElement: YuiClickableObject) {
+            toPrioritize.add(yuiElement)
+        }
+
+        public fun deprioritize(yuiElement: YuiClickableObject) {
+            toDeprioritize.add(yuiElement)
+        }
+
+        public fun addPost(yuiElement: YuiClickableObject) {
+            yuiToAddPost.add(yuiElement)
+        }
+
+        public fun removePost(yuiElement: YuiClickableObject) {
+            yuiToRemovePost.add(yuiElement)
+        }
+
+        public fun prioritizePost(yuiElement: YuiClickableObject) {
+            toPrioritizePost.add(yuiElement)
+        }
+
+        public fun deprioritizePost(yuiElement: YuiClickableObject) {
+            toDeprioritizePost.add(yuiElement)
+        }
+
+        public fun isRegular(yuiElement: YuiClickableObject): Boolean {
+            return listOfYui.contains(yuiElement)
+        }
+
+        public fun isPost(yuiElement: YuiClickableObject): Boolean {
+            return listOfPostYui.contains(yuiElement)
         }
 
         @JvmStatic
