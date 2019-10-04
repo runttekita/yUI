@@ -1,6 +1,7 @@
 package reina.yUi
 
 import basemod.BaseMod
+import basemod.interfaces.PostInitializeSubscriber
 import basemod.interfaces.PostRenderSubscriber
 import basemod.interfaces.PostUpdateSubscriber
 import basemod.interfaces.RenderSubscriber
@@ -20,23 +21,38 @@ import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.cards.blue.Strike_Blue
 import com.megacrit.cardcrawl.cards.green.Strike_Green
 import com.megacrit.cardcrawl.cards.red.Strike_Red
+import com.megacrit.cardcrawl.characters.AbstractPlayer
 import com.megacrit.cardcrawl.core.CardCrawlGame
 import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.helpers.input.InputAction
 import java.util.*
+import kotlin.collections.ArrayList
 
 @SpireInitializer
 class Yui() :
-    RenderSubscriber {
+    RenderSubscriber,
+    PostInitializeSubscriber {
 
+    private var inputSpawnYui: InputAction? = null
+    private var listOfYui = ArrayList<SimpleYuiObject>()
 
     init {
         BaseMod.subscribe(this)
     }
 
-    override fun receiveRender(sb: SpriteBatch) {
+    override fun receivePostInitialize() {
+        inputSpawnYui = InputAction(Input.Keys.N)
+    }
 
+    override fun receiveRender(sb: SpriteBatch) {
+        if (AbstractDungeon.player != null && inputSpawnYui!!.isJustPressed) {
+            listOfYui.add(SimpleYuiObject())
+        }
+        for (yui in listOfYui) {
+            yui.render(sb)
+            yui.update()
+        }
     }
 
     companion object {
