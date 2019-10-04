@@ -4,8 +4,11 @@ import basemod.BaseMod
 import basemod.interfaces.PostRenderSubscriber
 import basemod.interfaces.PostUpdateSubscriber
 import basemod.interfaces.RenderSubscriber
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import com.badlogic.gdx.math.Vector2
 import com.evacipated.cardcrawl.modthespire.lib.SpireEnum
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer
 import com.megacrit.cardcrawl.cards.AbstractCard
@@ -15,18 +18,30 @@ import java.util.*
 
 @SpireInitializer
 class Yui() :
-    RenderSubscriber {
+    RenderSubscriber,
+    PostRenderSubscriber {
     var test: Test? = null
+    val sr = ShapeRenderer()
     init {
         BaseMod.subscribe(this)
     }
 
-    override fun receiveRender(sb: SpriteBatch?) {
+    override fun receiveRender(sb: SpriteBatch) {
         if (test == null)
             test = Test()
         if (AbstractDungeon.player != null) {
             test!!.update()
             test!!.render(sb)
+        }
+    }
+
+    override fun receivePostRender(sb: SpriteBatch) {
+        if (Settings.isDebug) {
+            sr.begin()
+            sr.line(Vector2(Settings.WIDTH.toFloat() / 2, Settings.HEIGHT.toFloat()),
+                Vector2(Settings.WIDTH.toFloat() / 2, 0f))
+            sr.color = Color.PINK.cpy()
+            sr.end()
         }
     }
 
