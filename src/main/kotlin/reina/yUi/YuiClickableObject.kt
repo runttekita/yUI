@@ -50,7 +50,6 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
     private val inputDelete = InputAction(Input.Keys.X)
     protected var xValue = x / Settings.scale
     protected var yValue = y / Settings.scale
-    private var priority: Int = 0
     private var currentMode: Mode = Mode.NONE
 
     public fun getX(): Float {

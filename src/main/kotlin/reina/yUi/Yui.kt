@@ -92,6 +92,9 @@ class Yui() :
         yuiToRemove.clear()
     }
 
+    /**
+     * Same as above
+     */
     override fun receivePostUpdate() {
         for (yui in listOfPostYui) {
             yui.update()
