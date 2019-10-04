@@ -29,7 +29,11 @@ UI in STS is a pain dude.
   Press L while in Move or Nudge mode to exit mode.
   
  ## Autoplace
+ 
   You can call `autoPlaceHorizontally()` or `autoPlaceVertically()` to automatically place an element relative to another element.
+ ## Print:
+ 
+  Press P while hovering over your yUi element in debug mode to print coordinates and texture width and height to console.
 
 
 # How To Use
