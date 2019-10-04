@@ -29,9 +29,9 @@ class Yui() :
 
     override fun receiveRender(sb: SpriteBatch) {
         if (test == null)
-            test = Test()
+            test = Test(Settings.WIDTH/2F, Settings.HEIGHT/2F)
         if (test2 == null)
-            test2 = Test()
+            test2 = Test(0f, 0f)
         if (AbstractDungeon.player != null) {
             test!!.update()
             test!!.render(sb)
@@ -41,7 +41,7 @@ class Yui() :
         }
     }
 
-    class Test: YuiClickableObject(Texture("reina/yUi/images/journey.png"), Settings.WIDTH / 2f, Settings.HEIGHT / 2f) {
+    class Test(x: Float, y: Float): YuiClickableObject(Texture("reina/yUi/images/journey.png"), x, y) {
 
         override fun onClick() {
         }
