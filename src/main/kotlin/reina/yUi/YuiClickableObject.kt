@@ -19,6 +19,10 @@ import javax.swing.JFileChooser
  * Features:
  * Coordinates:
  *  In debug mode, you yUi element will render its coordinates before being multiplied by Settings.scale
+ * File Mode:
+ *  Press H while hovering over your yUi element in debug mode to open up your file browser.
+ *  You can select any picture to replace your texture with.
+ *  This mode exits automatically on file choose.
  * Move Mode:
  *  Press J while hovering over your yUi Element in debug mode to make it snap to your mouse
  * Nudge Mode:
@@ -95,6 +99,8 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
                     image = Yui.assetManager.getTexture(file.absolutePath)
                     hb_w = image.width.toFloat()
                     hb_h = image.width.toFloat()
+                    hitbox.update()
+                    Mode.FILE.on = false
                 }
             }
         }
