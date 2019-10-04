@@ -122,11 +122,11 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
 
     override fun update() {
         super.update()
+        if (inputExit.isJustPressed) {
+            this.currentMode = Mode.NONE
+        }
         moveMode()
         nudgeMode()
-        if (inputExit.isJustPressed) {
-            this.currentMode == Mode.NONE
-        }
         xValue = x / Settings.scale
         yValue = y / Settings.scale
     }
