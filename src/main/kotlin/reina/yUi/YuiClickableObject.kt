@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.evacipated.cardcrawl.modthespire.lib.SpireInsertPatch
 import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.helpers.FontHelper
 import com.megacrit.cardcrawl.helpers.input.InputAction
@@ -80,7 +81,7 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
     }
 
     private fun enterMode(enteredMode: Mode) {
-        currentMode = enteredMode
+        this.currentMode = enteredMode
     }
 
     override fun onHover() {
@@ -101,8 +102,7 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
                         image = Yui.assetManager.getTexture(file.absolutePath)
                         hb_w = image.width.toFloat()
                         hb_h = image.width.toFloat()
-                        hitbox.update()
-                        Mode.FILE.on = false
+                        currentMode == Mode.NONE
                     }
                 }
             }
@@ -125,7 +125,7 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
         moveMode()
         nudgeMode()
         if (inputExit.isJustPressed) {
-            Mode.values().forEach { it.on = false }
+            this.currentMode == Mode.NONE
         }
         xValue = x / Settings.scale
         yValue = y / Settings.scale
