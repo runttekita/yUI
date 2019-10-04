@@ -37,7 +37,7 @@ class Yui() :
             test!!.render(sb)
             test2!!.update()
             test2!!.render(sb)
-            autoPlaceVertically(test!!, test2!!, 30f)
+            autoPlaceHorizontally(test!!, test2!!)
         }
     }
 
@@ -53,14 +53,14 @@ class Yui() :
 
 
     companion object {
-        public fun autoplaceHorizontally(anchorElement: YuiClickableObject, placedElement: YuiClickableObject) {
+        public fun autoPlaceHorizontally(anchorElement: YuiClickableObject, placedElement: YuiClickableObject) {
             val anchorX = anchorElement.getX()
             val anchorY = anchorElement.getY()
             placedElement.setX(anchorX + anchorElement.getWidth())
             placedElement.setY(anchorY)
         }
 
-        public fun autoplaceHorizontally(anchorElement: YuiClickableObject, placedElement: YuiClickableObject, padding: Float) {
+        public fun autoPlaceHorizontally(anchorElement: YuiClickableObject, placedElement: YuiClickableObject, padding: Float) {
             val anchorX = anchorElement.getX()
             val anchorY = anchorElement.getY()
             placedElement.setX(anchorX + anchorElement.getWidth() + padding)
