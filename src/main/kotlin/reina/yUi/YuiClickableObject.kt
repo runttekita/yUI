@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.evacipated.cardcrawl.modthespire.lib.SpireInsertPatch
 import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.helpers.FontHelper
 import com.megacrit.cardcrawl.helpers.input.InputAction
@@ -33,8 +34,8 @@ import javax.swing.JFileChooser
  * Print:
  *  Prints coordinates and texture width and height to console.
  */
-abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Float) :
-    ClickableUIElement(texture, x, y, texture.width.toFloat(), texture.height.toFloat()) {
+abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Float) :
+    ClickableUIElement(texture, x, y, texture!!.width.toFloat(), texture.height.toFloat()) {
     private val inputFile = InputAction(Input.Keys.H)
     private val inputMove = InputAction(Input.Keys.J)
     private val inputNudge = InputAction(Input.Keys.K)
@@ -44,8 +45,10 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
     private val inputLeft = InputAction(Input.Keys.LEFT)
     private val inputDown = InputAction(Input.Keys.DOWN)
     private val inputPrint = InputAction(Input.Keys.P)
-    private var xValue = x / Settings.scale
-    private var yValue = y / Settings.scale
+    protected var xValue = x / Settings.scale
+    protected var yValue = y / Settings.scale
+    private var priority: Int = 0
+    private var currentMode: Mode = Mode.NONE
 
     public fun getX(): Float {
         return x
@@ -55,11 +58,11 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
         return y
     }
 
-    public fun getWidth(): Float {
+    public open fun getWidth(): Float {
         return image.width.toFloat() * Settings.scale
     }
 
-    public fun getHeight(): Float {
+    public open fun getHeight(): Float {
         return image.height.toFloat() * Settings.scale
     }
 
@@ -73,16 +76,12 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
     enum class Mode(var on: Boolean) {
         FILE(false),
         MOVE(false),
-        NUDGE(false)
+        NUDGE(false),
+        NONE(false)
     }
 
     private fun enterMode(enteredMode: Mode) {
-        Mode.values().forEach {
-            if (it != enteredMode) {
-                it.on = false
-            }
-        }
-        enteredMode.on = true
+        this.currentMode = enteredMode
     }
 
     override fun onHover() {
@@ -95,15 +94,16 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
             }
             if (inputFile.isJustPressed) {
                 enterMode(Mode.FILE)
-                val fc = JFileChooser();
-                val returnVal = fc.showOpenDialog(null);
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    val file = fc.selectedFile
-                    image = Yui.assetManager.getTexture(file.absolutePath)
-                    hb_w = image.width.toFloat()
-                    hb_h = image.width.toFloat()
-                    hitbox.update()
-                    Mode.FILE.on = false
+                if (this.currentMode == Mode.FILE) {
+                    val fc = JFileChooser();
+                    val returnVal = fc.showOpenDialog(null);
+                    if (returnVal == JFileChooser.APPROVE_OPTION) {
+                        val file = fc.selectedFile
+                        image = Yui.assetManager.getTexture(file.absolutePath)
+                        hb_w = image.width.toFloat()
+                        hb_h = image.width.toFloat()
+                        currentMode == Mode.NONE
+                    }
                 }
             }
             if (inputPrint.isJustPressed) {
@@ -121,11 +121,11 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
 
     override fun update() {
         super.update()
+        if (inputExit.isJustPressed) {
+            this.currentMode = Mode.NONE
+        }
         moveMode()
         nudgeMode()
-        if (inputExit.isJustPressed) {
-            Mode.values().forEach { it.on = false }
-        }
         xValue = x / Settings.scale
         yValue = y / Settings.scale
     }
@@ -136,7 +136,7 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
     }
 
     private fun moveMode() {
-        if (Mode.MOVE.on) {
+        if (this.currentMode == Mode.MOVE) {
             x = InputHelper.mX.toFloat()
             y = InputHelper.mY.toFloat()
             moveHitboxes()
@@ -144,7 +144,7 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
     }
 
     private fun nudgeMode() {
-        if (Mode.NUDGE.on) {
+        if (this.currentMode == Mode.NUDGE) {
             moveHitboxes()
             if (inputUp.isPressed) {
                 y += 1 * Settings.scale
@@ -161,7 +161,7 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
         }
     }
 
-    override fun render(sb: SpriteBatch?) {
+    override fun render(sb: SpriteBatch) {
         super.render(sb)
         if (Settings.isDebug) {
             FontHelper.renderFontCentered(sb, FontHelper.energyNumFontPurple, "x: $xValue", x, y)

@@ -1,6 +1,7 @@
 package reina.yUi
 
 import basemod.BaseMod
+import basemod.interfaces.PostInitializeSubscriber
 import basemod.interfaces.PostRenderSubscriber
 import basemod.interfaces.PostUpdateSubscriber
 import basemod.interfaces.RenderSubscriber
@@ -17,20 +18,41 @@ import com.badlogic.gdx.utils.GdxRuntimeException
 import com.evacipated.cardcrawl.modthespire.lib.SpireEnum
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer
 import com.megacrit.cardcrawl.cards.AbstractCard
+import com.megacrit.cardcrawl.cards.blue.Strike_Blue
+import com.megacrit.cardcrawl.cards.green.Strike_Green
+import com.megacrit.cardcrawl.cards.red.Strike_Red
+import com.megacrit.cardcrawl.characters.AbstractPlayer
+import com.megacrit.cardcrawl.core.CardCrawlGame
 import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.helpers.input.InputAction
 import java.util.*
+import kotlin.collections.ArrayList
 
 @SpireInitializer
 class Yui() :
-    RenderSubscriber {
+    RenderSubscriber,
+    PostInitializeSubscriber {
+
+    private var inputSpawnYui: InputAction? = null
+    private var listOfYui = ArrayList<SimpleYuiObject>()
 
     init {
         BaseMod.subscribe(this)
     }
 
+    override fun receivePostInitialize() {
+        inputSpawnYui = InputAction(Input.Keys.N)
+    }
+
     override fun receiveRender(sb: SpriteBatch) {
+        if (AbstractDungeon.player != null && inputSpawnYui!!.isJustPressed) {
+            listOfYui.add(SimpleYuiObject())
+        }
+        for (yui in listOfYui) {
+            yui.render(sb)
+            yui.update()
+        }
     }
 
     companion object {
@@ -62,18 +84,44 @@ class Yui() :
          * So if you're making a big complex relationship of yUI elements,
          * work from the bottom-left and expand out from there.
          */
-        public fun autoPlaceVertically(anchorElement: YuiClickableObject, placedElement: YuiClickableObject) {
+        public fun autoPlaceVertically
+                    (anchorElement: YuiClickableObject, placedElement: YuiClickableObject) {
             val anchorX = anchorElement.getX()
             val anchorY = anchorElement.getY()
             placedElement.setX(anchorX)
             placedElement.setY(anchorY + anchorElement.getHeight())
         }
 
-        public fun autoPlaceVertically(anchorElement: YuiClickableObject, placedElement: YuiClickableObject, padding: Float) {
+        public fun autoPlaceVertically
+                    (anchorElement: YuiClickableObject, placedElement: YuiClickableObject, padding: Float) {
             val anchorX = anchorElement.getX()
             val anchorY = anchorElement.getY()
             placedElement.setX(anchorX)
             placedElement.setY(anchorY + anchorElement.getHeight() + padding)
+        }
+
+        /**
+         * @param offset Places placedElement above anchorElement then moves it to the right
+         * by your offset
+         */
+        public fun autoPlaceVerticallyWithHorizontalOffset
+                    (anchorElement: YuiClickableObject, placedElement: YuiClickableObject, offset: Float) {
+            val anchorX = anchorElement.getX()
+            val anchorY = anchorElement.getY()
+            placedElement.setX(anchorX + offset)
+            placedElement.setY(anchorY + anchorElement.getHeight())
+        }
+
+        /**
+         * Same as above but places the placedElement to the right then moves it up
+         * by your offset
+         */
+        public fun autoPlaceHorizontallyWithVerticalOffset
+                    (anchorElement: YuiClickableObject, placedElement: YuiClickableObject, offset: Float) {
+            val anchorX = anchorElement.getX()
+            val anchorY = anchorElement.getY()
+            placedElement.setX(anchorX + anchorElement.getWidth())
+            placedElement.setY(anchorY + offset)
         }
 
         @JvmStatic
@@ -95,7 +143,7 @@ class Yui() :
                     try {
                         assets.finishLoadingAsset(fileName)
                     } catch (e: GdxRuntimeException) {
-                        throw e
+                        println("Cant find texture???")
                     }
 
                 }
