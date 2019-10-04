@@ -23,16 +23,18 @@ import com.megacrit.cardcrawl.helpers.input.InputHelper
  * Nudge Mode:
  *  Press K while hovering over your yUi element in debug mode to be able to press the arrow
  *  keys to slightly nudge your element.
+ * Exit Mode:
+ *  Press L while in Move or Nudge mode to exit mode.
  */
 abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Float) :
     ClickableUIElement(texture, x, y, texture.width.toFloat(), texture.height.toFloat()) {
-    public val inputMove = InputAction(Input.Keys.J)
-    public val inputNudge = InputAction(Input.Keys.K)
-    public val inputUp = InputAction(Input.Keys.UP)
-    public val inputRight = InputAction(Input.Keys.RIGHT)
-    public val inputLeft = InputAction(Input.Keys.LEFT)
-    public val inputDown = InputAction(Input.Keys.DOWN)
-    private var waitTimer = 0.5f
+    private val inputMove = InputAction(Input.Keys.J)
+    private val inputNudge = InputAction(Input.Keys.K)
+    private val inputExit = InputAction(Input.Keys.L)
+    private val inputUp = InputAction(Input.Keys.UP)
+    private val inputRight = InputAction(Input.Keys.RIGHT)
+    private val inputLeft = InputAction(Input.Keys.LEFT)
+    private val inputDown = InputAction(Input.Keys.DOWN)
     private var xValue = x / Settings.scale
     private var yValue = y / Settings.scale
 
@@ -76,7 +78,6 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
     override fun onHover() {
         if (Settings.isDebug) {
             if (inputMove.isJustPressed) {
-                waitTimer = 0.5f
                 enterMode(Mode.MOVE)
             }
             if (inputNudge.isJustPressed) {
@@ -91,6 +92,9 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
         super.update()
         moveMode()
         nudgeMode()
+        if (inputExit.isJustPressed) {
+            Mode.values().forEach { it.on = false }
+        }
         xValue = x / Settings.scale
         yValue = y / Settings.scale
     }
@@ -105,9 +109,6 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
             x = InputHelper.mX.toFloat()
             y = InputHelper.mY.toFloat()
             moveHitboxes()
-            waitTimer -= Gdx.graphics.deltaTime
-            if (inputMove.isPressed && waitTimer < 0)
-                Mode.MOVE.on = false
         }
     }
 
