@@ -45,11 +45,11 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
     }
 
     public fun getWidth(): Float {
-        return texture.width.toFloat()
+        return texture.width.toFloat() * Settings.scale
     }
 
     public fun getHeight(): Float {
-        return texture.height.toFloat()
+        return texture.height.toFloat() * Settings.scale
     }
 
     init {
@@ -65,7 +65,11 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
     }
 
     private fun enterMode(enteredMode: Mode) {
-        Mode.values().forEach { it.on = false }
+        Mode.values().forEach {
+            if (it != enteredMode) {
+                it.on = false
+            }
+        }
         enteredMode.on = true
     }
 
@@ -103,7 +107,6 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
             moveHitboxes()
             waitTimer -= Gdx.graphics.deltaTime
             if (inputMove.isPressed && waitTimer < 0)
-                waitTimer = 0.5f
                 Mode.MOVE.on = false
         }
     }
