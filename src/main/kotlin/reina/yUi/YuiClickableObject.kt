@@ -1,6 +1,7 @@
 package reina.yUi
 
 import basemod.ClickableUIElement
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
@@ -13,8 +14,9 @@ import com.megacrit.cardcrawl.helpers.input.InputHelper
 
 abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Float) :
     ClickableUIElement(texture, x, y, texture.width.toFloat(), texture.height.toFloat()) {
-    public var inMoveMode: Boolean = false
-    private val inputMove: InputAction = InputAction(Input.Keys.Q)
+    public var inMoveMode= false
+    private val inputMove = InputAction(Input.Keys.Q)
+    private var waitTimer = 0.5f
 
     init {
         this.x = x
@@ -24,8 +26,10 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
     }
 
     override fun onHover() {
-        if (inputMove.isJustPressed && Settings.isDebug)
+        if (inputMove.isJustPressed && Settings.isDebug) {
             inMoveMode = !inMoveMode;
+            waitTimer = 0.5f
+        }
     }
 
     override fun update() {
@@ -39,16 +43,18 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
             y = InputHelper.mY.toFloat()
             hitbox.x = x
             hitbox.y = y
-            if (inputMove.isPressed)
+            waitTimer -= Gdx.graphics.deltaTime
+            if (inputMove.isPressed && waitTimer < 0)
                 inMoveMode = !inMoveMode
         }
     }
 
     override fun render(sb: SpriteBatch?) {
         super.render(sb)
-        if (Settings.isDebug)
-            FontHelper.renderFontCentered(sb, FontHelper.energyNumFontPurple, x.toString(),
-                texture.width.toFloat() / Settings.scale, texture.height.toFloat() / Settings.scale)
+        if (Settings.isDebug) {
+            FontHelper.renderFontCentered(sb, FontHelper.energyNumFontPurple, x.toString(), x, y)
+            FontHelper.renderFontCentered(sb, FontHelper.energyNumFontPurple, y.toString(), x + 15 * Settings.scale, y)
+        }
     }
 
 }
