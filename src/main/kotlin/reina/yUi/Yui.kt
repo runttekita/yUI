@@ -1,10 +1,7 @@
 package reina.yUi
 
 import basemod.BaseMod
-import basemod.interfaces.PostInitializeSubscriber
-import basemod.interfaces.PostRenderSubscriber
-import basemod.interfaces.PostUpdateSubscriber
-import basemod.interfaces.RenderSubscriber
+import basemod.interfaces.*
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.assets.loaders.TextureLoader
@@ -32,6 +29,7 @@ import kotlin.collections.ArrayList
 @SpireInitializer
 class Yui() :
     RenderSubscriber,
+    PostRenderSubscriber,
     PostInitializeSubscriber {
 
     private var inputSpawnYui: InputAction? = null
@@ -57,8 +55,16 @@ class Yui() :
         }
     }
 
+    override fun receivePostRender(sb: SpriteBatch) {
+        for (yui in listOfPostYui) {
+            yui.render(sb)
+            yui.update()
+        }
+    }
+
     companion object {
         private var listOfYui = ArrayList<YuiClickableObject>()
+        private var listOfPostYui = ArrayList<YuiClickableObject>()
 
         public fun add(yuiElement: YuiClickableObject) {
             listOfYui.add(yuiElement)
@@ -76,6 +82,24 @@ class Yui() :
         public fun makeBottom(yuiElement: YuiClickableObject) {
             listOfYui.remove(yuiElement)
             listOfYui.add(0, yuiElement)
+        }
+
+        public fun addPost(yuiElement: YuiClickableObject) {
+            listOfPostYui.add(yuiElement)
+        }
+
+        public fun removePost(yuiElement: YuiClickableObject) {
+            listOfPostYui.remove(yuiElement)
+        }
+
+        public fun makeTopPost(yuiElement: YuiClickableObject) {
+            listOfPostYui.remove(yuiElement)
+            listOfPostYui.add(yuiElement)
+        }
+
+        public fun makeBottomPost(yuiElement: YuiClickableObject) {
+            listOfYui.remove(yuiElement)
+            listOfPostYui.add(0, yuiElement)
         }
 
         /**
