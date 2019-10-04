@@ -22,17 +22,21 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
     }
 
     override fun onHover() {
-        if (inputMove.isJustPressed) {
+        if (inputMove.isJustPressed)
             inMoveMode = !inMoveMode;
-        }
+    }
+
+    override fun update() {
+        super.update()
+        moveMode()
     }
 
     private fun moveMode() {
-        if (!inMoveMode) return;
+        if (!inMoveMode) return
         x = InputHelper.mX.toFloat()
         y = InputHelper.mY.toFloat();
-        if (InputHelper.justClickedLeft)
-            inMoveMode = false
+        println(InputHelper.mX)
+        println(InputHelper.mY)
     }
 
     override fun render(sb: SpriteBatch?) {
