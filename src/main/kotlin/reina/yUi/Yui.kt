@@ -37,7 +37,7 @@ class Yui() :
             test!!.render(sb)
             test2!!.update()
             test2!!.render(sb)
-            autoPlaceHorizontally(test!!, test2!!)
+            autoPlaceVertically(test!!, test2!!)
         }
     }
 
@@ -53,6 +53,12 @@ class Yui() :
 
 
     companion object {
+        /**
+         * @param anchorElement The element you want to be placed nearby
+         * @param placedElement The element being moved
+         *
+         * This places placedElement to the *right* of the anchor element.
+         */
         public fun autoPlaceHorizontally(anchorElement: YuiClickableObject, placedElement: YuiClickableObject) {
             val anchorX = anchorElement.getX()
             val anchorY = anchorElement.getY()
@@ -60,6 +66,9 @@ class Yui() :
             placedElement.setY(anchorY)
         }
 
+        /**
+         * @param padding The amount of space between anchorElement and placedElement
+         */
         public fun autoPlaceHorizontally(anchorElement: YuiClickableObject, placedElement: YuiClickableObject, padding: Float) {
             val anchorX = anchorElement.getX()
             val anchorY = anchorElement.getY()
@@ -67,18 +76,23 @@ class Yui() :
             placedElement.setY(anchorY)
         }
 
+        /**
+         * This places placedElement *above* the anchorElement.
+         * So if you're making a big complex relationship of yUI elements,
+         * work from the bottom-left and expand out from there.
+         */
         public fun autoPlaceVertically(anchorElement: YuiClickableObject, placedElement: YuiClickableObject) {
             val anchorX = anchorElement.getX()
             val anchorY = anchorElement.getY()
             placedElement.setX(anchorX)
-            placedElement.setY(anchorY - anchorElement.getHeight())
+            placedElement.setY(anchorY + anchorElement.getHeight())
         }
 
         public fun autoPlaceVertically(anchorElement: YuiClickableObject, placedElement: YuiClickableObject, padding: Float) {
             val anchorX = anchorElement.getX()
             val anchorY = anchorElement.getY()
             placedElement.setX(anchorX)
-            placedElement.setY(anchorY - anchorElement.getHeight() + padding)
+            placedElement.setY(anchorY + anchorElement.getHeight() + padding)
         }
 
         @JvmStatic
