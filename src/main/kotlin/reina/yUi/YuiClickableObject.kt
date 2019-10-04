@@ -18,7 +18,7 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
     private val inputMove = InputAction(Input.Keys.Q)
     private var waitTimer = 0.5f
     private var xValue = x / Settings.scale
-    private var yValue = x / Settings.scale
+    private var yValue = y / Settings.scale
 
     init {
         this.x = x
@@ -38,7 +38,7 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
         super.update()
         moveMode()
         xValue = x / Settings.scale
-        yValue = x / Settings.scale
+        yValue = y / Settings.scale
     }
 
     private fun moveMode() {
@@ -57,7 +57,7 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
         super.render(sb)
         if (Settings.isDebug) {
             FontHelper.renderFontCentered(sb, FontHelper.energyNumFontPurple, "x: $xValue", x, y)
-            FontHelper.renderFontCentered(sb, FontHelper.energyNumFontPurple, "y: $yValue", x, y + 50 * Settings.scale)
+            FontHelper.renderFontCentered(sb, FontHelper.energyNumFontPurple, "y: $yValue", x, y - 50 * Settings.scale)
         }
     }
 
