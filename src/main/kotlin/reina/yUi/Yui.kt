@@ -95,7 +95,7 @@ class Yui() :
                     try {
                         assets.finishLoadingAsset(fileName)
                     } catch (e: GdxRuntimeException) {
-                        throw e
+                        println("Cant find texture???")
                     }
 
                 }
