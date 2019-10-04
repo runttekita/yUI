@@ -38,11 +38,26 @@ UI in STS is a pain dude.
   ## Spawn Yui
   
    Spawn a simple yUi element at your cursor in debug mode by pressing N.
-
+   
+  ## Delete:
+  
+  Press X while hovering over your yUi Element in debug mode to delete it.
+ 
+ ## Priority:
+ 
+   Press TAB while hovering over your yUi Element in debug mode to make it be rendered on top
+   
+ ## Deprioritize:
+ 
+   Press L-SHIFT while hovering over your yUi Element in debug mode to make it be render on the bottom
+  
 
 # How To Use
 
 Extend `YuiClickableObject` to make your own UI element. 
+
+To render your yUi element call `Yui.Companion.add()` and pass it an instance of your element.
+All the various methods you can use on your element can be found in [Yui.kt](https://github.com/velvet-halation/yUI/blob/master/src/main/kotlin/reina/yUi/Yui.kt) in the `companion object`
 
 Read the documentation:
 
