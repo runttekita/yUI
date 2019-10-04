@@ -49,7 +49,7 @@ class Yui() :
      */
     override fun receiveRender(sb: SpriteBatch) {
         if (AbstractDungeon.player != null && inputSpawnYui!!.isJustPressed) {
-            Yui.add(SimpleYuiObject())
+            add(SimpleYuiObject())
         }
         for (yui in listOfYui) {
             yui.render(sb)
