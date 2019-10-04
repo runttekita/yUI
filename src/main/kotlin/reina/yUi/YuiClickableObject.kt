@@ -1,28 +1,30 @@
 package reina.yUi
 
 import basemod.ClickableUIElement
+import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.evacipated.cardcrawl.mod.stslib.patches.HitboxRightClick
 import com.megacrit.cardcrawl.core.CardCrawlGame
 import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.helpers.FontHelper
+import com.megacrit.cardcrawl.helpers.input.InputAction
 import com.megacrit.cardcrawl.helpers.input.InputHelper
 
 abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Float) :
     ClickableUIElement(texture, x, y, texture.width.toFloat(), texture.height.toFloat()) {
-    private var inMoveMode: Boolean = false
+    public var inMoveMode: Boolean = false
+    private val inputMove: InputAction = InputAction(Input.Keys.Q)
 
     init {
         this.x = x
         this.y = y
     }
 
-    override fun updateHitbox() {
-        super.updateHitbox()
-        moveMode()
-        if (HitboxRightClick.rightClicked.get(this.hitbox) && Settings.isDebug)
-            inMoveMode = true
+    override fun onHover() {
+        if (inputMove.isJustPressed) {
+            inMoveMode = !inMoveMode;
+        }
     }
 
     private fun moveMode() {
