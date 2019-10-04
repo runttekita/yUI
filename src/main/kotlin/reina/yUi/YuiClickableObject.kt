@@ -46,6 +46,7 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
     private val inputPrint = InputAction(Input.Keys.P)
     private var xValue = x / Settings.scale
     private var yValue = y / Settings.scale
+    private var priority: Int = 0
 
     public fun getX(): Float {
         return x
