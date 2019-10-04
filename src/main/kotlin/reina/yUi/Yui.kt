@@ -18,10 +18,9 @@ import java.util.*
 
 @SpireInitializer
 class Yui() :
-    RenderSubscriber,
-    PostRenderSubscriber {
+    RenderSubscriber {
     var test: Test? = null
-    val sr = ShapeRenderer()
+
     init {
         BaseMod.subscribe(this)
     }
@@ -32,16 +31,6 @@ class Yui() :
         if (AbstractDungeon.player != null) {
             test!!.update()
             test!!.render(sb)
-        }
-    }
-
-    override fun receivePostRender(sb: SpriteBatch) {
-        if (Settings.isDebug) {
-            sr.begin()
-            sr.line(Vector2(Settings.WIDTH.toFloat() / 2, Settings.HEIGHT.toFloat()),
-                Vector2(Settings.WIDTH.toFloat() / 2, 0f))
-            sr.color = Color.PINK.cpy()
-            sr.end()
         }
     }
 
