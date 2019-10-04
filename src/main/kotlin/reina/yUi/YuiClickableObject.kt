@@ -103,6 +103,7 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
             moveHitboxes()
             waitTimer -= Gdx.graphics.deltaTime
             if (inputMove.isPressed && waitTimer < 0)
+                waitTimer = 0.5f
                 Mode.MOVE.on = false
         }
     }
