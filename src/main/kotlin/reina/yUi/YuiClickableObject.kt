@@ -17,6 +17,8 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
     public var inMoveMode= false
     private val inputMove = InputAction(Input.Keys.Q)
     private var waitTimer = 0.5f
+    private var xValue = x / Settings.scale
+    private var yValue = x / Settings.scale
 
     init {
         this.x = x
@@ -52,8 +54,8 @@ abstract class YuiClickableObject(private val texture: Texture, x: Float, y: Flo
     override fun render(sb: SpriteBatch?) {
         super.render(sb)
         if (Settings.isDebug) {
-            FontHelper.renderFontCentered(sb, FontHelper.energyNumFontPurple, (x / Settings.scale).toString(), x, y)
-            FontHelper.renderFontCentered(sb, FontHelper.energyNumFontPurple, (y / Settings.scale).toString(), x, y + 100 * Settings.scale)
+            FontHelper.renderFontCentered(sb, FontHelper.energyNumFontPurple, "x: $xValue", x, y)
+            FontHelper.renderFontCentered(sb, FontHelper.energyNumFontPurple, "y: $yValue", x, y + 50 * Settings.scale)
         }
     }
 
