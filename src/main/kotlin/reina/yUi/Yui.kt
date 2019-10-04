@@ -32,6 +32,7 @@ class Yui() :
 
     class Test: YuiClickableObject(Texture("reina/yUi/images/journey.png"), Settings.WIDTH / 2f, Settings.HEIGHT / 2f) {
         override fun onHover() {
+            super.onHover()
             println(inMoveMode)
         }
 
