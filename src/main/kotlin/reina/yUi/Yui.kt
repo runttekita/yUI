@@ -17,6 +17,10 @@ import com.badlogic.gdx.utils.GdxRuntimeException
 import com.evacipated.cardcrawl.modthespire.lib.SpireEnum
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer
 import com.megacrit.cardcrawl.cards.AbstractCard
+import com.megacrit.cardcrawl.cards.blue.Strike_Blue
+import com.megacrit.cardcrawl.cards.green.Strike_Green
+import com.megacrit.cardcrawl.cards.red.Strike_Red
+import com.megacrit.cardcrawl.core.CardCrawlGame
 import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.helpers.input.InputAction
@@ -25,12 +29,34 @@ import java.util.*
 @SpireInitializer
 class Yui() :
     RenderSubscriber {
+    var cardOne: YuiCard? = null
+    var cardTwo: YuiCard? = null
+    var cardThree: YuiCard? = null
 
     init {
         BaseMod.subscribe(this)
     }
 
     override fun receiveRender(sb: SpriteBatch) {
+        if (CardCrawlGame.dungeon != null && AbstractDungeon.player != null) {
+            if (cardOne == null) {
+                cardOne = YuiCard(Strike_Red().makeStatEquivalentCopy(), Settings.WIDTH / 2f, Settings.HEIGHT / 2f, false)
+            }
+            if (cardTwo == null) {
+                cardTwo = YuiCard(Strike_Green().makeStatEquivalentCopy(), Settings.WIDTH / 2f, Settings.HEIGHT / 2f, false)
+            }
+            if (cardThree == null) {
+                cardThree = YuiCard(Strike_Blue().makeStatEquivalentCopy(), Settings.WIDTH / 2f, Settings.HEIGHT / 2f, false)
+            }
+            autoPlaceHorizontallyWithVerticalOffset(cardOne!!, cardTwo!!, 50f)
+            autoPlaceVerticallyWithHorizontalOffset(cardTwo!!, cardThree!!, 50f)
+            cardOne!!.render(sb)
+            cardThree!!.render(sb)
+            cardTwo!!.render(sb)
+            cardOne!!.update()
+            cardTwo!!.update()
+            cardThree!!.update()
+        }
     }
 
     companion object {

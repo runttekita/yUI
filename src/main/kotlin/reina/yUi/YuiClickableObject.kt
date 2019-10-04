@@ -34,7 +34,7 @@ import javax.swing.JFileChooser
  *  Prints coordinates and texture width and height to console.
  */
 abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Float) :
-    ClickableUIElement(texture, x, y, texture.width.toFloat(), texture.height.toFloat()) {
+    ClickableUIElement(texture, x, y, texture!!.width.toFloat(), texture.height.toFloat()) {
     private val inputFile = InputAction(Input.Keys.H)
     private val inputMove = InputAction(Input.Keys.J)
     private val inputNudge = InputAction(Input.Keys.K)
@@ -44,8 +44,8 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
     private val inputLeft = InputAction(Input.Keys.LEFT)
     private val inputDown = InputAction(Input.Keys.DOWN)
     private val inputPrint = InputAction(Input.Keys.P)
-    private var xValue = x / Settings.scale
-    private var yValue = y / Settings.scale
+    protected var xValue = x / Settings.scale
+    protected var yValue = y / Settings.scale
     private var priority: Int = 0
 
     public fun getX(): Float {
@@ -56,11 +56,11 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
         return y
     }
 
-    public fun getWidth(): Float {
+    public open fun getWidth(): Float {
         return image.width.toFloat() * Settings.scale
     }
 
-    public fun getHeight(): Float {
+    public open fun getHeight(): Float {
         return image.height.toFloat() * Settings.scale
     }
 
