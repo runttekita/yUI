@@ -62,18 +62,36 @@ class Yui() :
          * So if you're making a big complex relationship of yUI elements,
          * work from the bottom-left and expand out from there.
          */
-        public fun autoPlaceVertically(anchorElement: YuiClickableObject, placedElement: YuiClickableObject) {
+        public fun autoPlaceVertically
+                    (anchorElement: YuiClickableObject, placedElement: YuiClickableObject) {
             val anchorX = anchorElement.getX()
             val anchorY = anchorElement.getY()
             placedElement.setX(anchorX)
             placedElement.setY(anchorY + anchorElement.getHeight())
         }
 
-        public fun autoPlaceVertically(anchorElement: YuiClickableObject, placedElement: YuiClickableObject, padding: Float) {
+        public fun autoPlaceVertically
+                    (anchorElement: YuiClickableObject, placedElement: YuiClickableObject, padding: Float) {
             val anchorX = anchorElement.getX()
             val anchorY = anchorElement.getY()
             placedElement.setX(anchorX)
             placedElement.setY(anchorY + anchorElement.getHeight() + padding)
+        }
+
+        public fun autoPlaceVerticallyWithHorizontalOffset
+                    (anchorElement: YuiClickableObject, placedElement: YuiClickableObject, offset: Float) {
+            val anchorX = anchorElement.getX()
+            val anchorY = anchorElement.getY()
+            placedElement.setX(anchorX + offset)
+            placedElement.setY(anchorY + anchorElement.getHeight())
+        }
+
+        public fun autoPlaceHorizontallyWithVerticalOffset
+                    (anchorElement: YuiClickableObject, placedElement: YuiClickableObject, offset: Float) {
+            val anchorX = anchorElement.getX()
+            val anchorY = anchorElement.getY()
+            placedElement.setX(anchorX + anchorElement.getWidth())
+            placedElement.setY(anchorY + offset)
         }
 
         @JvmStatic
