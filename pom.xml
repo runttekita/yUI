@@ -4,7 +4,7 @@
     <groupId>reinashsl</groupId>
     <artifactId>yUi</artifactId>
     <name>yUi</name>
-    <version>2.2.0</version>
+    <version>2.2.1</version>
     <description>UI Library</description>
 
     <properties>
@@ -98,21 +98,7 @@
                                 <filter>
                                     <artifact>*:*</artifact>
                                     <excludes>
-                                        <exclude>META-INF/client.kotlin_module</exclude>
-                                        <exclude>META-INF/descriptors.jvm.kotlin_module</exclude>
-                                        <exclude>META-INF/descriptors.kotlin_module</exclude>
-                                        <exclude>META-INF/descriptors.runtime.kotlin_module</exclude>
-                                        <exclude>META-INF/deserialization.kotlin_module</exclude>
-                                        <exclude>META-INF/kotlin-reflect-api.kotlin_module</exclude>
-                                        <exclude>META-INF/metadata.jvm.kotlin_module</exclude>
-                                        <exclude>META-INF/metadata.kotlin_module</exclude>
-                                        <exclude>META-INF/util.runtime.kotlin_module</exclude>
-                                        <exclude>META-INF/kotlin-stdlib.kotlin_module</exclude>
-                                        <exclude>META-INF/kotlin-stdlib_coroutinesExperimental.kotlin_module</exclude>
-                                        <exclude>META-INF/kotlin-stdlib-common.kotlin_module</exclude>
-                                        <exclude>META-INF/kotlin-stdlib-common-coroutines.kotlin_module</exclude>
-                                        <exclude>META-INF/kotlin-stdlib-jdk8.kotlin_module</exclude>
-                                        <exclude>META-INF/kotlin-stdlib-jdk7.kotlin_module</exclude>
+                                        <exclude>META-INF/kotlin-stdlib*</exclude>
                                     </excludes>
                                 </filter>
                             </filters>
