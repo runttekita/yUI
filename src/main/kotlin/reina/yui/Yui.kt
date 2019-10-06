@@ -195,6 +195,9 @@ class Yui() :
             placedElement.setY(anchorY + offset)
         }
 
+        /**
+         * For base game elements, you can instead pass their hitbox to autoplace.
+         */
         public fun autoPlaceHorizontallyHitbox(anchorElement: Hitbox, placedElement: YuiClickableObject) {
             placedElement.setX(anchorElement.x + anchorElement.width)
             placedElement.setY(anchorElement.y)
