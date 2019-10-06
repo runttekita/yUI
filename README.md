@@ -35,6 +35,9 @@ The name Yui just sounds like UI.
  ## Autoplace
  
   You can call `autoPlaceHorizontally()` or `autoPlaceVertically()` to automatically place an element relative to another element.
+  
+  You can also pass those methods a Hitbox to position relative to those if you're trying to position to base game elements. 
+  
  ## Print:
  
   Press P while hovering over your yUi element in debug mode to print coordinates and texture width and height to console.
@@ -65,13 +68,13 @@ All the various methods you can use on your element can be found in [Yui.kt](htt
 
 Read the documentation:
 
-https://github.com/velvet-halation/yUI/blob/master/src/main/kotlin/reina/yUi/Yui.kt
+https://github.com/velvet-halation/yUI/blob/master/src/main/kotlin/reina/yui/Yui.kt
 
-https://github.com/velvet-halation/yUI/blob/master/src/main/kotlin/reina/yUi/YuiClickableObject.kt
+https://github.com/velvet-halation/yUI/blob/master/src/main/kotlin/reina/yui/YuiClickableObject.kt
 
 An example Yui element:
 
-https://github.com/velvet-halation/yUI/blob/master/src/main/kotlin/reina/yUi/SimpleYuiObject.kt
+https://github.com/velvet-halation/yUI/blob/master/src/main/kotlin/reina/yui/SimpleYuiObject.kt
 
 ## Build this yourself
 ```
