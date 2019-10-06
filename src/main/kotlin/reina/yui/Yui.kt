@@ -14,6 +14,7 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireEnum
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer
 import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.cards.CardGroup
+import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.helpers.Hitbox
 import com.megacrit.cardcrawl.helpers.input.InputAction
@@ -44,7 +45,7 @@ class Yui() :
      * Press N in debug mode to spawn a Simple Yui Object at your mouse location.
      */
     override fun receiveRender(sb: SpriteBatch) {
-        if (AbstractDungeon.player != null && inputSpawnYui!!.isJustPressed) {
+        if (AbstractDungeon.player != null && inputSpawnYui!!.isJustPressed && Settings.isDebug) {
             add(SimpleYuiObject())
         }
         for (yui in listOfYui) {
