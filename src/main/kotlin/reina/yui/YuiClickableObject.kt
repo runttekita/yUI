@@ -129,7 +129,7 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
                         val file = fc.selectedFile
                         image = Yui.assetManager.getTexture(file.absolutePath)
                         hb_w = image.width.toFloat()
-                        hb_h = image.width.toFloat()
+                        hb_h = image.height.toFloat()
                         hitbox = Hitbox(x, y, hb_w, hb_h)
                         currentMode == Mode.NONE
                     }
