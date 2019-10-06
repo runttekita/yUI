@@ -134,6 +134,8 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
                 }
             }
             if (inputPrint.isJustPressed) {
+                xValue = x / Settings.scale
+                yValue = y / Settings.scale
                 println("" +
                         "x: $xValue\n" +
                         "y: $yValue\n" +
