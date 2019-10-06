@@ -57,7 +57,7 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
     private val inputDeprioritize = InputAction(Input.Keys.SHIFT_LEFT)
     private val inputDelete = InputAction(Input.Keys.X)
     private val inputResize  = InputAction(Input.Keys.R)
-    private val inputMaintainRatio = InputAction(Input.Keys.SHIFT_LEFT)
+    private val inputModifier = InputAction(Input.Keys.CONTROL_LEFT)
     protected var xValue = x / Settings.scale
     protected var yValue = y / Settings.scale
     private var currentMode: Mode = Mode.NONE
@@ -94,7 +94,8 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
         MOVE(false),
         NUDGE(false),
         NONE(false),
-        RESIZE(false)
+        RESIZE(false),
+        RESIZE_MAINTAIN(false)
     }
 
     private fun enterMode(enteredMode: Mode) {
@@ -110,7 +111,7 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
                     Yui.prioritizePost(this)
                 }
             }
-            if (inputDeprioritize.isJustPressed && this.currentMode != Mode.RESIZE) {
+            if (inputDeprioritize.isJustPressed) {
                 if (Yui.isRegular(this)) {
                     Yui.deprioritize(this)
                 } else if (Yui.isPost(this)) {
@@ -130,8 +131,11 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
             if (inputNudge.isJustPressed) {
                 enterMode(Mode.NUDGE)
             }
-            if (inputResize.isJustPressed) {
+            if (inputResize.isJustPressed && !inputModifier.isPressed) {
                 enterMode(Mode.RESIZE)
+            }
+            if (inputModifier.isPressed && inputResize.isJustPressed) {
+                enterMode(Mode.RESIZE_MAINTAIN)
             }
             if (inputFile.isJustPressed) {
                 enterMode(Mode.FILE)
@@ -173,8 +177,17 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
         moveMode()
         nudgeMode()
         resizeMode()
+        resizeModeMaintainRatio()
         xValue = x / Settings.scale
         yValue = y / Settings.scale
+    }
+
+    private fun resizeModeMaintainRatio() {
+        if (this.currentMode == Mode.RESIZE_MAINTAIN) {
+            drawScaleX = getScaleX()
+            drawScaleY = drawScaleX
+            hitbox = Hitbox(x, y, image.width * drawScaleX!! * Settings.scale, image.height * drawScaleY!! * Settings.scale)
+        }
     }
 
     private fun resizeMode() {
