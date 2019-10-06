@@ -273,10 +273,15 @@ class Yui() :
             return listOfPostYui.contains(yuiElement)
         }
 
+        /**
+         * Ignore everything from here down
+         */
         @JvmStatic
         fun initialize() {
             Yui()
         }
+
+
 
         public val assetManager = AssetLoader()
 
