@@ -64,8 +64,8 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
     protected var xValue = x / Settings.scale
     protected var yValue = y / Settings.scale
     private var currentMode: Mode = Mode.NONE
-    private var drawScaleX: Float? = 1f
-    private var drawScaleY: Float? = 1f
+    public var drawScaleX: Float? = 1f
+    public var drawScaleY: Float? = 1f
     private var originalWidth = texture?.width
     private var originalHeight = texture?.height
 
