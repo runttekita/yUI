@@ -17,6 +17,7 @@ import com.megacrit.cardcrawl.cards.CardGroup
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.helpers.input.InputAction
 import com.megacrit.cardcrawl.ui.panels.DiscardPilePanel
+import com.megacrit.cardcrawl.ui.panels.DrawPilePanel
 import kotlin.collections.ArrayList
 import kotlin.properties.Delegates
 
@@ -126,6 +127,8 @@ class Yui() :
         private var yuiToAddPost = ArrayList<YuiClickableObject>()
         private val discardWidth = ReflectionHacks.getPrivateStatic(DiscardPilePanel::class.java, "HITBOX_W") as Float
         private val discardHeight = ReflectionHacks.getPrivateStatic(DiscardPilePanel::class.java, "HITBOX_W") as Float
+        private val drawWidth = ReflectionHacks.getPrivateStatic(DrawPilePanel::class.java, "HITBOX_W") as Float
+        private val drawHeight = ReflectionHacks.getPrivateStatic(DrawPilePanel::class.java, "HITBOX_W") as Float
 
         /**
          * @param anchorElement The element you want to be placed nearby
@@ -235,6 +238,20 @@ class Yui() :
             val discardY = CardGroup.DISCARD_PILE_Y
             placedElement.setX(discardX - offset)
             placedElement.setY(discardY + discardHeight)
+        }
+
+        public fun autoPlaceHorizontallyDrawPile(placedElement: YuiClickableObject) {
+            val drawX = CardGroup.DRAW_PILE_X
+            val drawY = CardGroup.DRAW_PILE_Y
+            placedElement.setX(drawX + drawWidth)
+            placedElement.setY(drawY.toFloat())
+        }
+
+        public fun autoPlaceHorizontallyDrawPile(placedElement: YuiClickableObject, padding: Float) {
+            val drawX = CardGroup.DRAW_PILE_X
+            val drawY = CardGroup.DRAW_PILE_Y
+            placedElement.setX(drawX + drawWidth + padding)
+            placedElement.setY(drawY.toFloat())
         }
 
         /**
