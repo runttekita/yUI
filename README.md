@@ -1,8 +1,6 @@
 Adding in a GUI to make UI creation easier in Slay The Spire.
 
-yUi doesnt stand for anything.
-
-The name Yui just sounds like UI.
+yUi stands for yUi user interface.
 
 # Features:
 
