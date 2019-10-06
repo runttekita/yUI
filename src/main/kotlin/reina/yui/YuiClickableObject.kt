@@ -31,8 +31,11 @@ import kotlin.math.abs
  * Nudge Mode:
  *  Press K while hovering over your yUi element in debug mode to be able to press the arrow
  *  keys to slightly nudge your element.
+ * Resize Mode:
+ *  Press R while hovering over your yUi element in debug mode to resize it.
+ *  Ctrl+R lets you maintain the aspect ratio.
  * Exit Mode:
- *  Press L while in Move or Nudge mode to exit mode.
+ *  Press L while in Move, Resize or Nudge mode to exit mode.
  * Print:
  *  Prints coordinates and texture width and height to console.
  * Delete:
