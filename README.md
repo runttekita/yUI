@@ -68,13 +68,13 @@ All the various methods you can use on your element can be found in [Yui.kt](htt
 
 Read the documentation:
 
-https://github.com/velvet-halation/yui/blob/master/src/main/kotlin/reina/yUi/Yui.kt
+https://github.com/velvet-halation/yUI/blob/master/src/main/kotlin/reina/yui/Yui.kt
 
-https://github.com/velvet-halation/yui/blob/master/src/main/kotlin/reina/yUi/YuiClickableObject.kt
+https://github.com/velvet-halation/yUI/blob/master/src/main/kotlin/reina/yui/YuiClickableObject.kt
 
 An example Yui element:
 
-https://github.com/velvet-halation/yui/blob/master/src/main/kotlin/reina/yUi/SimpleYuiObject.kt
+https://github.com/velvet-halation/yUI/blob/master/src/main/kotlin/reina/yui/SimpleYuiObject.kt
 
 ## Build this yourself
 ```
