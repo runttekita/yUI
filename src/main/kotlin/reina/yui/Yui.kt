@@ -197,6 +197,7 @@ class Yui() :
 
         /**
          * For base game elements, you can instead pass their hitbox to autoplace.
+         * Common base game elements like draw pile, discard pile, etc can be fought in AbstractDungeon.overlayMenu
          */
         public fun autoPlaceHorizontally(anchorElement: Hitbox, placedElement: YuiClickableObject) {
             placedElement.setX(anchorElement.x + anchorElement.width)
