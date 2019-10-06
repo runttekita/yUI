@@ -24,13 +24,17 @@ The name Yui just sounds like UI.
   
  ## Nudge Mode:
  
-  Press K while hovering over your yUi element in debug mode to be able to press the arrow
+  Press K while hovering over your yUi element in debug mode to be able to press the arrow keys to slightly nudge your element.
   
-  keys to slightly nudge your element.
+ ## Resize Mode:
+ 
+  Press R while hovering over your yUi element in debug mode to resize it.
   
+  Ctrl+R lets you maintain the aspect ratio.
+ 
  ## Exit Mode:
  
-  Press L while in Move or Nudge mode to exit mode.
+  Press L while in Move, Resize or Nudge mode to exit mode.
   
  ## Autoplace
  
