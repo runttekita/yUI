@@ -2,6 +2,8 @@ package reina.yui
 
 import basemod.ClickableUIElement
 import com.badlogic.gdx.Input
+import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.megacrit.cardcrawl.core.Settings
@@ -10,6 +12,7 @@ import com.megacrit.cardcrawl.helpers.Hitbox
 import com.megacrit.cardcrawl.helpers.input.InputAction
 import com.megacrit.cardcrawl.helpers.input.InputHelper
 import javax.swing.JFileChooser
+import kotlin.math.abs
 
 /**
  * @param texture The image you want to draw.
@@ -53,9 +56,15 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
     private val inputPriority = InputAction(Input.Keys.TAB)
     private val inputDeprioritize = InputAction(Input.Keys.SHIFT_LEFT)
     private val inputDelete = InputAction(Input.Keys.X)
+    private val inputResize  = InputAction(Input.Keys.R)
+    private val inputMaintainRatio = InputAction(Input.Keys.SHIFT_LEFT)
     protected var xValue = x / Settings.scale
     protected var yValue = y / Settings.scale
     private var currentMode: Mode = Mode.NONE
+    private var drawScaleX: Float? = 1f
+    private var drawScaleY: Float? = 1f
+    private var originalWidth = texture?.width
+    private var originalHeight = texture?.height
 
     public fun getX(): Float {
         return x
@@ -84,7 +93,8 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
         FILE(false),
         MOVE(false),
         NUDGE(false),
-        NONE(false)
+        NONE(false),
+        RESIZE(false)
     }
 
     private fun enterMode(enteredMode: Mode) {
@@ -100,7 +110,7 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
                     Yui.prioritizePost(this)
                 }
             }
-            if (inputDeprioritize.isJustPressed) {
+            if (inputDeprioritize.isJustPressed && this.currentMode != Mode.RESIZE) {
                 if (Yui.isRegular(this)) {
                     Yui.deprioritize(this)
                 } else if (Yui.isPost(this)) {
@@ -120,6 +130,9 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
             if (inputNudge.isJustPressed) {
                 enterMode(Mode.NUDGE)
             }
+            if (inputResize.isJustPressed) {
+                enterMode(Mode.RESIZE)
+            }
             if (inputFile.isJustPressed) {
                 enterMode(Mode.FILE)
                 if (this.currentMode == Mode.FILE) {
@@ -131,6 +144,8 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
                         hb_w = image.width.toFloat() * Settings.scale
                         hb_h = image.height.toFloat() * Settings.scale
                         hitbox = Hitbox(x, y, hb_w, hb_h)
+                        originalWidth = image.width
+                        originalHeight = image.height
                         currentMode == Mode.NONE
                     }
                 }
@@ -157,8 +172,27 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
         }
         moveMode()
         nudgeMode()
+        resizeMode()
         xValue = x / Settings.scale
         yValue = y / Settings.scale
+    }
+
+    private fun resizeMode() {
+        if (this.currentMode == Mode.RESIZE) {
+            drawScaleX = getScaleX()
+            drawScaleY = getScaleY()
+            hitbox = Hitbox(x, y, image.width * drawScaleX!! * Settings.scale, image.height * drawScaleY!! * Settings.scale)
+        }
+    }
+
+    private fun getScaleX(): Float? {
+        val distanceFromImageOriginToMouseX = abs(x - InputHelper.mX)
+        return distanceFromImageOriginToMouseX / originalWidth!!
+    }
+
+    private fun getScaleY(): Float? {
+        val distanceFromImageOriginToMouseY = abs(y - InputHelper.mY)
+        return distanceFromImageOriginToMouseY / originalHeight!!
     }
 
     private fun moveHitboxes() {
@@ -193,10 +227,69 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
     }
 
     override fun render(sb: SpriteBatch) {
-        super.render(sb)
+        sb.color = Color.WHITE
+        if (image != null) {
+            val halfWidth = image.width / 2.0f
+            val halfHeight = image.height / 2.0f
+            sb.draw(
+                image,
+                x - halfWidth + halfWidth * Settings.scale, y - halfHeight + halfHeight * Settings.scale,
+                halfWidth, halfHeight,
+                image.width.toFloat(), image.height.toFloat(),
+                drawScaleX!! * Settings.scale, drawScaleY!! * Settings.scale,
+                angle,
+                0, 0,
+                image.width, image.height,
+                false, false
+            )
+            if (tint.a > 0) {
+                sb.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE)
+                sb.color = tint
+                sb.draw(
+                    image,
+                    x - halfWidth + halfWidth * Settings.scale, y - halfHeight + halfHeight * Settings.scale,
+                    halfWidth, halfHeight,
+                    image.width.toFloat(), image.height.toFloat(),
+                    drawScaleX!! * Settings.scale, drawScaleY!! * Settings.scale,
+                    angle,
+                    0, 0,
+                    image.width, image.height,
+                    false, false
+                )
+                sb.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
+            }
+        } else if (region != null) {
+            val halfWidth = region.packedWidth / 2.0f
+            val halfHeight = region.packedHeight / 2.0f
+            sb.draw(
+                region,
+                x - halfWidth + halfWidth * Settings.scale, y - halfHeight + halfHeight * Settings.scale,
+                halfWidth, halfHeight,
+                region.packedWidth.toFloat(), region.packedHeight.toFloat(),
+                drawScaleX!! * Settings.scale, drawScaleY!! * Settings.scale,
+                angle
+            )
+            if (tint.a > 0) {
+                sb.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE)
+                sb.color = tint
+                sb.draw(
+                    region,
+                    x - halfWidth + halfWidth * Settings.scale, y - halfHeight + halfHeight * Settings.scale,
+                    halfWidth, halfHeight,
+                    region.packedWidth.toFloat(), region.packedHeight.toFloat(),
+                    drawScaleX!! * Settings.scale, drawScaleY!! * Settings.scale,
+                    angle
+                )
+                sb.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
+            }
+        }
+        renderHitbox(sb)
         if (Settings.isDebug) {
             FontHelper.renderFontCentered(sb, FontHelper.energyNumFontBlue, "x: $xValue", x, y)
             FontHelper.renderFontCentered(sb, FontHelper.energyNumFontBlue, "y: $yValue", x, y - 50 * Settings.scale)
+            if (this.currentMode != Mode.NONE) {
+                FontHelper.renderFontCentered(sb, FontHelper.energyNumFontRed, this.currentMode.toString(), x + image.width * Settings.scale, y - 50 * Settings.scale)
+            }
         }
     }
 
