@@ -128,8 +128,8 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
                     if (returnVal == JFileChooser.APPROVE_OPTION) {
                         val file = fc.selectedFile
                         image = Yui.assetManager.getTexture(file.absolutePath)
-                        hb_w = image.width.toFloat()
-                        hb_h = image.height.toFloat()
+                        hb_w = image.width.toFloat() * Settings.scale
+                        hb_h = image.height.toFloat() * Settings.scale
                         hitbox = Hitbox(x, y, hb_w, hb_h)
                         currentMode == Mode.NONE
                     }
