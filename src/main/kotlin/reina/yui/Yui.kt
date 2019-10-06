@@ -198,32 +198,32 @@ class Yui() :
         /**
          * For base game elements, you can instead pass their hitbox to autoplace.
          */
-        public fun autoPlaceHorizontallyHitbox(anchorElement: Hitbox, placedElement: YuiClickableObject) {
+        public fun autoPlaceHorizontally(anchorElement: Hitbox, placedElement: YuiClickableObject) {
             placedElement.setX(anchorElement.x + anchorElement.width)
             placedElement.setY(anchorElement.y)
         }
 
-        public fun autoPlaceHorizontallyHitbox(anchorElement: Hitbox, placedElement: YuiClickableObject, padding: Float) {
+        public fun autoPlaceHorizontally(anchorElement: Hitbox, placedElement: YuiClickableObject, padding: Float) {
             placedElement.setX(anchorElement.x + anchorElement.width + padding)
             placedElement.setY(anchorElement.y)
         }
 
-        public fun autoPlaceHorizontallyHitboxWithVerticalOffset(anchorElement: Hitbox, placedElement: YuiClickableObject, offset: Float) {
+        public fun autoPlaceHorizontallyWithVerticalOffset(anchorElement: Hitbox, placedElement: YuiClickableObject, offset: Float) {
             placedElement.setX(anchorElement.x + anchorElement.width)
             placedElement.setY(anchorElement.y + offset)
         }
 
-        public fun autoPlaceVerticallyHitbox(anchorElement: Hitbox, placedElement: YuiClickableObject) {
+        public fun autoPlaceVertically(anchorElement: Hitbox, placedElement: YuiClickableObject) {
             placedElement.setX(anchorElement.x)
             placedElement.setY(anchorElement.y + anchorElement.height)
         }
 
-        public fun autoPlaceVerticallyHitbox(anchorElement: Hitbox, placedElement: YuiClickableObject, padding: Float) {
+        public fun autoPlaceVertically(anchorElement: Hitbox, placedElement: YuiClickableObject, padding: Float) {
             placedElement.setX(anchorElement.x)
             placedElement.setY(anchorElement.y + anchorElement.height + padding)
         }
 
-        public fun autoPlaceVerticallyHitboxWithHorizontalOffset(anchorElement: Hitbox, placedElement: YuiClickableObject, offset: Float) {
+        public fun autoPlaceVerticallyWithHorizontalOffset(anchorElement: Hitbox, placedElement: YuiClickableObject, offset: Float) {
             placedElement.setX(anchorElement.x + offset)
             placedElement.setY(anchorElement.y + anchorElement.height)
         }
