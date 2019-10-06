@@ -65,6 +65,10 @@ yUi stands for yUi user interface.
 
 # How To Use
 
+# IMPORTANT NOTE FOR INTELLIJ USERS
+
+There is a second `yUi.jar` in the workshop folder in `/idea`. You MUST point to this jar as a dependency or else IntelliJ won't be able to resolve it as a dependency. The two jars are identical in code so don't worry, just point to `<systemPath>${Steam.path}/workshop/content/646570/1879864511/idea/yUi.jar</systemPath>`.
+
 Extend `YuiClickableObject` to make your own UI element. 
 
 To render your yUi element call `Yui.Companion.add()` and pass it an instance of your element.
