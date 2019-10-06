@@ -36,7 +36,7 @@ import javax.swing.JFileChooser
  * Priority:
  *   Press TAB while hovering over your yUi Element in debug mode to make it be rendered on top
  * Deprioritize:
- *   Press L-SHIFT while hovering over your yUi Element in debug mode to make it be render on the bottom
+ *   Press L-SHIFT while hovering over your yUi Element in debug mode to make it be rendered on the bottom
  */
 abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Float) :
     ClickableUIElement(texture, x, y, texture!!.width.toFloat(), texture.height.toFloat()) {

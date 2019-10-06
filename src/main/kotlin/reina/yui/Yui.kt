@@ -190,7 +190,7 @@ class Yui() :
         }
 
         /**
-         * These messages are all for automatically rendering and updating your yUi elements
+         * These methods are all for automatically rendering and updating your yUi elements
          * So you don't have to
          * You can also change the priority or the order in which things render.
          */
