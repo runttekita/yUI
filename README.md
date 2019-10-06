@@ -42,6 +42,8 @@ The name Yui just sounds like UI.
   
   You can also pass those methods a Hitbox to position relative to those if you're trying to position to base game elements. 
   
+  There is also `autoPlaceSamePosition()` to place your element in the same position as another element.
+  
  ## Print:
  
   Press P while hovering over your yUi element in debug mode to print coordinates and texture width and height to console.
