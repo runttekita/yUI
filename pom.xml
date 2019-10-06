@@ -4,8 +4,8 @@
     <groupId>reinashsl</groupId>
     <artifactId>yUi</artifactId>
     <name>yUi</name>
-    <version>0.0.1</version>
-    <description>Making UIs in this game sux</description>
+    <version>2.1.0</version>
+    <description>UI Library</description>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
