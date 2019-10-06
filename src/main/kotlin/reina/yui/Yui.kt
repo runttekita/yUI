@@ -126,14 +126,6 @@ class Yui() :
         private var yuiToRemovePost = ArrayList<YuiClickableObject>()
         private var yuiToAdd = ArrayList<YuiClickableObject>()
         private var yuiToAddPost = ArrayList<YuiClickableObject>()
-        private val discardWidth = ReflectionHacks.getPrivateStatic(DiscardPilePanel::class.java, "HITBOX_W") as Float
-        private val discardHeight = ReflectionHacks.getPrivateStatic(DiscardPilePanel::class.java, "HITBOX_W") as Float
-        private val drawWidth = ReflectionHacks.getPrivateStatic(DrawPilePanel::class.java, "HITBOX_W") as Float
-        private val drawHeight = ReflectionHacks.getPrivateStatic(DrawPilePanel::class.java, "HITBOX_W") as Float
-        private val discardX = CardGroup.DISCARD_PILE_X
-        private val discardY = CardGroup.DISCARD_PILE_Y
-        private val drawX = CardGroup.DRAW_PILE_X
-        private val drawY = CardGroup.DRAW_PILE_Y
 
         /**
          * @param anchorElement The element you want to be placed nearby
