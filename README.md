@@ -62,7 +62,7 @@ The name Yui just sounds like UI.
    
  ## Deprioritize:
  
-   Press L-SHIFT while hovering over your yUi Element in debug mode to make it be render on the bottom
+   Press L-SHIFT while hovering over your yUi Element in debug mode to make it be rendered on the bottom
   
 
 # How To Use
