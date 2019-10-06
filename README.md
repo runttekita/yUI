@@ -35,6 +35,9 @@ The name Yui just sounds like UI.
  ## Autoplace
  
   You can call `autoPlaceHorizontally()` or `autoPlaceVertically()` to automatically place an element relative to another element.
+  
+  You can also pass those methods a Hitbox to position relative to those if you're trying to position to base game elements. 
+  
  ## Print:
  
   Press P while hovering over your yUi element in debug mode to print coordinates and texture width and height to console.
