@@ -213,22 +213,22 @@ class Yui() :
             placedElement.setY(anchorElement.y)
         }
 
-        public fun autoPlaceHorizontallyDiscardPileWithVerticalOffset(anchorElement: Hitbox, placedElement: YuiClickableObject, offset: Float) {
+        public fun autoPlaceHorizontallyHitboxWithVerticalOffset(anchorElement: Hitbox, placedElement: YuiClickableObject, offset: Float) {
             placedElement.setX(anchorElement.x + anchorElement.width)
             placedElement.setY(anchorElement.y + offset)
         }
 
-        public fun autoPlaceVerticallyDiscardPile(anchorElement: Hitbox, placedElement: YuiClickableObject) {
+        public fun autoPlaceVerticallyHitbox(anchorElement: Hitbox, placedElement: YuiClickableObject) {
             placedElement.setX(anchorElement.x)
             placedElement.setY(anchorElement.y + anchorElement.height)
         }
 
-        public fun autoPlaceVerticallyDiscardPile(anchorElement: Hitbox, placedElement: YuiClickableObject, padding: Float) {
+        public fun autoPlaceVerticallyHitbox(anchorElement: Hitbox, placedElement: YuiClickableObject, padding: Float) {
             placedElement.setX(anchorElement.x)
             placedElement.setY(anchorElement.y + anchorElement.height + padding)
         }
 
-        public fun autoPlaceVerticallyDiscardPileWithHorizontalOffset(anchorElement: Hitbox, placedElement: YuiClickableObject, offset: Float) {
+        public fun autoPlaceVerticallyHitboxWithHorizontalOffset(anchorElement: Hitbox, placedElement: YuiClickableObject, offset: Float) {
             placedElement.setX(anchorElement.x + offset)
             placedElement.setY(anchorElement.y + anchorElement.height)
         }
