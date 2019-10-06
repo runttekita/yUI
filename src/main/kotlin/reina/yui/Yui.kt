@@ -1,6 +1,7 @@
 package reina.yui
 
 import basemod.BaseMod
+import basemod.ReflectionHacks
 import basemod.interfaces.*
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.assets.AssetManager
@@ -12,9 +13,12 @@ import com.badlogic.gdx.utils.GdxRuntimeException
 import com.evacipated.cardcrawl.modthespire.lib.SpireEnum
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer
 import com.megacrit.cardcrawl.cards.AbstractCard
+import com.megacrit.cardcrawl.cards.CardGroup
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.helpers.input.InputAction
+import com.megacrit.cardcrawl.ui.panels.DiscardPilePanel
 import kotlin.collections.ArrayList
+import kotlin.properties.Delegates
 
 @SpireInitializer
 class Yui() :
@@ -120,6 +124,8 @@ class Yui() :
         private var yuiToRemovePost = ArrayList<YuiClickableObject>()
         private var yuiToAdd = ArrayList<YuiClickableObject>()
         private var yuiToAddPost = ArrayList<YuiClickableObject>()
+        private val discardWidth = ReflectionHacks.getPrivateStatic(DiscardPilePanel::class.java, "HITBOX_W") as Float
+        private val discardHeight = ReflectionHacks.getPrivateStatic(DiscardPilePanel::class.java, "HITBOX_W") as Float
 
         /**
          * @param anchorElement The element you want to be placed nearby
@@ -187,6 +193,48 @@ class Yui() :
             val anchorY = anchorElement.getY()
             placedElement.setX(anchorX + anchorElement.getWidth())
             placedElement.setY(anchorY + offset)
+        }
+
+        public fun autoPlaceHorizontallyDiscardPile(placedElement: YuiClickableObject) {
+            val discardX = CardGroup.DISCARD_PILE_X
+            val discardY = CardGroup.DISCARD_PILE_Y
+            placedElement.setX(discardX - discardWidth)
+            placedElement.setY(discardY.toFloat())
+        }
+
+        public fun autoPlaceHorizontallyDiscardPile(placedElement: YuiClickableObject, padding: Float) {
+            val discardX = CardGroup.DISCARD_PILE_X
+            val discardY = CardGroup.DISCARD_PILE_Y
+            placedElement.setX(discardX - discardWidth - offset)
+            placedElement.setY(discardY.toFloat())
+        }
+
+        public fun autoPlaceHorizontallyDiscardPileWithVerticalOffset(placedElement: YuiClickableObject, offset: Float) {
+            val discardX = CardGroup.DISCARD_PILE_X
+            val discardY = CardGroup.DISCARD_PILE_Y
+            placedElement.setX(discardX - discardWidth)
+            placedElement.setY(discardY.toFloat() + offset)
+        }
+
+        public fun autoPlaceVerticallyDiscardPile(placedElement: YuiClickableObject) {
+            val discardX = CardGroup.DISCARD_PILE_X
+            val discardY = CardGroup.DISCARD_PILE_Y
+            placedElement.setX(discardX.toFloat())
+            placedElement.setY(discardY + discardHeight)
+        }
+
+        public fun autoPlaceVerticallyDiscardPile(placedElement: YuiClickableObject, padding: Float) {
+            val discardX = CardGroup.DISCARD_PILE_X
+            val discardY = CardGroup.DISCARD_PILE_Y
+            placedElement.setX(discardX.toFloat())
+            placedElement.setY(discardY + discardHeight + padding)
+        }
+
+        public fun autoPlaceVerticallyDiscardPileWithHorizontalOffset(placedElement: YuiClickableObject, offset: Float) {
+            val discardX = CardGroup.DISCARD_PILE_X
+            val discardY = CardGroup.DISCARD_PILE_Y
+            placedElement.setX(discardX - offset)
+            placedElement.setY(discardY + discardHeight)
         }
 
         /**
