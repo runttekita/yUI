@@ -142,6 +142,20 @@ class Yui() :
             placedElement.setY(anchorY + offset)
         }
 
+        public fun autoPlaceSamePosition(anchorElement: YuiClickableObject, placedElement: YuiClickableObject) {
+            val anchorX = anchorElement.getX()
+            val anchorY = anchorElement.getY()
+            placedElement.setX(anchorX)
+            placedElement.setY(anchorY)
+        }
+
+        public fun autoPlaceSamePosition(anchorElement: YuiClickableObject, placedElement: YuiClickableObject, paddingX: Float, paddingY: Float) {
+            val anchorX = anchorElement.getX()
+            val anchorY = anchorElement.getY()
+            placedElement.setX(anchorX + paddingX)
+            placedElement.setY(anchorY + paddingY)
+        }
+
         /**
          * For base game elements, you can instead pass their hitbox to autoplace.
          * Common base game elements like draw pile, discard pile, etc can be fought in AbstractDungeon.overlayMenu
@@ -174,6 +188,16 @@ class Yui() :
         public fun autoPlaceVerticallyWithHorizontalOffset(anchorElement: Hitbox, placedElement: YuiClickableObject, offset: Float) {
             placedElement.setX(anchorElement.x + offset)
             placedElement.setY(anchorElement.y + anchorElement.height)
+        }
+
+        public fun autoPlaceSamePosition(anchorElement: Hitbox, placedElement: YuiClickableObject) {
+            placedElement.setX(anchorElement.x)
+            placedElement.setY(anchorElement.y)
+        }
+
+        public fun autoPlaceSamePosition(anchorElement: Hitbox, placedElement: YuiClickableObject, paddingX: Float, paddingY: Float) {
+            placedElement.setX(anchorElement.x + paddingX)
+            placedElement.setY(anchorElement.y + paddingY)
         }
 
         /**
