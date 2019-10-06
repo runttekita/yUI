@@ -1,11 +1,9 @@
-package reina.yUi
+package reina.yui
 
 import basemod.ClickableUIElement
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.evacipated.cardcrawl.modthespire.lib.SpireInsertPatch
 import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.helpers.FontHelper
 import com.megacrit.cardcrawl.helpers.input.InputAction

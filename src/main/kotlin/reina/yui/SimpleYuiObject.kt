@@ -1,10 +1,10 @@
-package reina.yUi
+package reina.yui
 
 import com.megacrit.cardcrawl.helpers.input.InputHelper
 
 class SimpleYuiObject:
     YuiClickableObject
-        (Yui.assetManager.getTexture("reina/yUi/images/yui.jpg"), getMx(), getMy()) {
+        (Yui.assetManager.getTexture("reina/yui/images/yui.jpg"), getMx(), getMy()) {
 
     override fun onUnhover() {
     }

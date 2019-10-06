@@ -1,29 +1,19 @@
-package reina.yUi
+package reina.yui
 
 import basemod.BaseMod
 import basemod.interfaces.*
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.assets.loaders.TextureLoader
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer
-import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.GdxRuntimeException
 import com.evacipated.cardcrawl.modthespire.lib.SpireEnum
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer
 import com.megacrit.cardcrawl.cards.AbstractCard
-import com.megacrit.cardcrawl.cards.blue.Strike_Blue
-import com.megacrit.cardcrawl.cards.green.Strike_Green
-import com.megacrit.cardcrawl.cards.red.Strike_Red
-import com.megacrit.cardcrawl.characters.AbstractPlayer
-import com.megacrit.cardcrawl.core.CardCrawlGame
-import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon
 import com.megacrit.cardcrawl.helpers.input.InputAction
-import java.util.*
 import kotlin.collections.ArrayList
 
 @SpireInitializer
