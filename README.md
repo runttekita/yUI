@@ -1,8 +1,6 @@
-Adding in a GUI to make UI creation easier in Slay The Spire.
+Adds in a GUI to make UI mock ups easier in Slay The Spire and provides methods to automatically place your elements where you want every time.
 
-yUi doesnt stand for anything.
-
-The name Yui just sounds like UI.
+yUi stands for yUi user interface.
 
 # Features:
 
@@ -42,6 +40,8 @@ The name Yui just sounds like UI.
   
   You can also pass those methods a Hitbox to position relative to those if you're trying to position to base game elements. 
   
+  There is also `autoPlaceSamePosition()` to place your element in the same position as another element.
+  
  ## Print:
  
   Press P while hovering over your yUi element in debug mode to print coordinates and texture width and height to console.
@@ -60,7 +60,7 @@ The name Yui just sounds like UI.
    
  ## Deprioritize:
  
-   Press L-SHIFT while hovering over your yUi Element in debug mode to make it be render on the bottom
+   Press L-SHIFT while hovering over your yUi Element in debug mode to make it be rendered on the bottom
   
 
 # How To Use
