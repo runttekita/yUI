@@ -61,60 +61,6 @@ class Yui() :
         }
     }
 
-    /**
-     * Boring behind the scenes library stuff
-     */
-    override fun receivePreUpdate() {
-        for (yui in listOfYui) {
-            yui.update()
-        }
-        for (yui in toPrioritize) {
-            listOfYui.remove(yui)
-            listOfYui.add(yui)
-        }
-        toPrioritize.clear()
-        for (yui in toDeprioritize) {
-            listOfYui.remove(yui)
-            listOfYui.add(0, yui)
-        }
-        toDeprioritize.clear()
-        for (yui in yuiToAdd) {
-            listOfYui.add(yui)
-        }
-        yuiToAdd.clear()
-        for (yui in yuiToRemove) {
-            listOfYui.remove(yui)
-        }
-        yuiToRemove.clear()
-    }
-
-    /**
-     * Same as above
-     */
-    override fun receivePostUpdate() {
-        for (yui in listOfPostYui) {
-            yui.update()
-        }
-        for (yui in toPrioritizePost) {
-            listOfPostYui.remove(yui)
-            listOfPostYui.add(yui)
-        }
-        toPrioritizePost.clear()
-        for (yui in toDeprioritizePost) {
-            listOfPostYui.remove(yui)
-            listOfPostYui.add(0, yui)
-        }
-        toDeprioritizePost.clear()
-        for (yui in yuiToAddPost) {
-            listOfPostYui.add(yui)
-        }
-        yuiToAddPost.clear()
-        for (yui in yuiToRemovePost) {
-            listOfPostYui.remove(yui)
-        }
-        yuiToRemovePost.clear()
-    }
-
     companion object {
         private var listOfYui = ArrayList<YuiClickableObject>()
         private var listOfPostYui = ArrayList<YuiClickableObject>()
@@ -313,6 +259,60 @@ class Yui() :
                 return assets.get(fileName, TextureAtlas::class.java)
             }
         }
+    }
+
+    /**
+     * Boring behind the scenes library stuff
+     */
+    override fun receivePreUpdate() {
+        for (yui in listOfYui) {
+            yui.update()
+        }
+        for (yui in toPrioritize) {
+            listOfYui.remove(yui)
+            listOfYui.add(yui)
+        }
+        toPrioritize.clear()
+        for (yui in toDeprioritize) {
+            listOfYui.remove(yui)
+            listOfYui.add(0, yui)
+        }
+        toDeprioritize.clear()
+        for (yui in yuiToAdd) {
+            listOfYui.add(yui)
+        }
+        yuiToAdd.clear()
+        for (yui in yuiToRemove) {
+            listOfYui.remove(yui)
+        }
+        yuiToRemove.clear()
+    }
+
+    /**
+     * Same as above
+     */
+    override fun receivePostUpdate() {
+        for (yui in listOfPostYui) {
+            yui.update()
+        }
+        for (yui in toPrioritizePost) {
+            listOfPostYui.remove(yui)
+            listOfPostYui.add(yui)
+        }
+        toPrioritizePost.clear()
+        for (yui in toDeprioritizePost) {
+            listOfPostYui.remove(yui)
+            listOfPostYui.add(0, yui)
+        }
+        toDeprioritizePost.clear()
+        for (yui in yuiToAddPost) {
+            listOfPostYui.add(yui)
+        }
+        yuiToAddPost.clear()
+        for (yui in yuiToRemovePost) {
+            listOfPostYui.remove(yui)
+        }
+        yuiToRemovePost.clear()
     }
 
     /**
