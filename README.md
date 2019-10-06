@@ -1,4 +1,4 @@
-Adding in a GUI to make UI creation easier in Slay The Spire.
+Adds in a GUI to make UI mock ups easier in Slay The Spire and provides methods to automatically place your elements where you want every time.
 
 yUi stands for yUi user interface.
 
