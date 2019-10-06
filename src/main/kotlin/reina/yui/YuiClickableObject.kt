@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.helpers.FontHelper
+import com.megacrit.cardcrawl.helpers.Hitbox
 import com.megacrit.cardcrawl.helpers.input.InputAction
 import com.megacrit.cardcrawl.helpers.input.InputHelper
 import javax.swing.JFileChooser
@@ -129,6 +130,7 @@ abstract class YuiClickableObject(private val texture: Texture?, x: Float, y: Fl
                         image = Yui.assetManager.getTexture(file.absolutePath)
                         hb_w = image.width.toFloat()
                         hb_h = image.width.toFloat()
+                        hitbox = Hitbox(x, y, hb_w, hb_h)
                         currentMode == Mode.NONE
                     }
                 }
